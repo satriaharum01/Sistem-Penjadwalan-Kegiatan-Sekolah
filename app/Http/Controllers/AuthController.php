@@ -10,35 +10,44 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        // Validasi input dari user
         $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required|min:6', // Menambahkan minimal panjang password
         ]);
 
+        // Cek apakah kredensial valid
         if (Auth::attempt($credentials)) {
+            // Regenerasi sesi untuk mencegah session fixation
             $request->session()->regenerate();
 
-            $rows = User::find(Auth::user()->id);
-            $level = strtolower($rows->level);
-            $rows->update([
-                'last_login' => now()
-             ]);
-            // Mengambil data user
+            // Mendapatkan data user berdasarkan ID
             $user = Auth::user();
+
+            // Update waktu login terakhir
+            $user->update([
+                'last_login' => now()
+            ]);
+
+            // Mengambil data user untuk dikembalikan sebagai respon
             return response()->json([
                 'message' => 'Login successful',
                 'type' => 'alert-success',
                 'user' => [
                     'id' => $user->id,
-                    'username' => $user->name, // atau sesuaikan field `username`
+                    'username' => $user->name, // Sesuaikan dengan field yang Anda butuhkan
                     'email' => $user->email,
                     'level' => $user->level,
-                    'faces' => $user->faces
+                    'faces' => $user->faces, // Sesuaikan dengan kolom foto atau avatar
                 ]
             ]);
         }
 
-        return response()->json(['message' => 'Email atau Password Salah !','type' => 'alert-danger',], 401);
+        // Jika login gagal
+        return response()->json([
+            'message' => 'Email atau Password Salah!',
+            'type' => 'alert-danger',
+        ], 401);
     }
 
     public function logout(Request $request)

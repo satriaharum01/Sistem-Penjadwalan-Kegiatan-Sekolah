@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //GET ROUTER PUBLIC
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('landing');
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('landing');
 
 Route::get('/{any}', function () {
     return view('react');
@@ -29,14 +29,3 @@ Route::prefix('get')->name('get.')->group(function () {
 });
 
 //Login
-
-Route::get('/login', function () {
-    return view('auth');
-});
-
-Route::prefix('account')->group(function () {
-    Route::get('/login', [App\Http\Controllers\HomeController::class, 'login'])->name('login');
-    Route::POST('/logout', [App\Http\Controllers\CustomAuth::class, 'customlogout'])->name('logout');
-    Route::POST('/set_password', [App\Http\Controllers\CustomAuth::class, 'set_password'])->name('set.password');
-    Route::POST('/login/cek_login', [App\Http\Controllers\CustomAuth::class, 'customLogin'])->name('custom.login');
-});

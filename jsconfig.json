@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["resources/js/*"],
+			"@helpers/*": ["resources/js/utils/helpers/*"],
+			"@hooks*": ["resources/js/utils/hooks*"],
+			"@hocs*": ["resources/js/utils/hocs*"]
+		}
+	},
+	"exclude": ["node_modules", "vendor"]
+}
