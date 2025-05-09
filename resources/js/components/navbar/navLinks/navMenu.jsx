@@ -16,6 +16,19 @@ import { NavItem, NavItemButton } from './navItem';
 
 const MENUITEM_FONTSIZE = 14;
 
+//function deepMatch({ items, match }) {
+//	for (const item of items) {
+//		if (match.startsWith(item.path)) {
+//			return item;
+//		}
+//		if (item.children) {
+//			const childMatch = deepMatch({ items: item.children, match });
+//			if (childMatch) return childMatch;
+//		}
+//	}
+//	return null;
+//}
+
 const deepMatch = ({ items, match }) =>
 	items.some((el) => {
 		if (el?.type === 'group') {
@@ -23,6 +36,7 @@ const deepMatch = ({ items, match }) =>
 		}
 		return match.includes(el?.href);
 	});
+
 function NavMenu({ minWidth = '100%', menuChildren = [], Icon, title }) {
 	const location = useLocation();
 	const [anchorEl, setAnchorEl] = useState(null);

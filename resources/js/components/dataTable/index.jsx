@@ -53,7 +53,7 @@ function EnhancedTableHead(props) {
 										fontSize: '10px',
 									}}
 								>
-									{order === 'desc' ? '•Decendente' : '•Ascendente'}
+									{order === 'desc' ? '•Decending' : '•Ascending'}
 								</span>
 							) : null}
 						</TableSortLabel>
@@ -148,7 +148,7 @@ function EnhancedTable(props) {
 				page={page}
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
-				labelRowsPerPage="Resultados por Pagina"
+				labelRowsPerPage="Result per Page"
 			/>
 		</>
 	);

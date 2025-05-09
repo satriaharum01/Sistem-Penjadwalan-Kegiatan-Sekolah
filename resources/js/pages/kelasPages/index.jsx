@@ -20,7 +20,6 @@ import DataTable from '@/components/dataTable';
 import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
 
 const getHeadCells = [
 	{
@@ -30,16 +29,16 @@ const getHeadCells = [
 		label: '',
 	},
 	{
-		id: 'kode',
+		id: 'tingkatan',
 		numeric: false,
 		disablePadding: false,
-		label: 'Kode',
+		label: 'Tingkatan',
 	},
 	{
-		id: 'nama_mapel',
+		id: 'nama_kelas',
 		numeric: false,
 		disablePadding: false,
-		label: 'Mata Pelajaran',
+		label: 'Kelas',
 	},
 	{
 		id: 'options',
@@ -49,17 +48,17 @@ const getHeadCells = [
 	},
 ];
 
-function MapelPage() {
+function KelasPage() {
 	return (
 		<>
-			<PageHeader title="Mata Pelajaran">
+			<PageHeader title="Kelas">
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
 						textTransform: 'uppercase',
 					}}
 				>
-					<Typography color="text.tertiary">Mata Pelajaran</Typography>
+					<Typography color="text.tertiary">Kelas</Typography>
 					<Link underline="hover" href="/">
 						Home
 					</Link>
@@ -67,7 +66,7 @@ function MapelPage() {
 			</PageHeader>
 
 			<Stack spacing={5}>
-				<DataTableSection name="Mata Peljaran" props={{ dense: true }} />
+				<DataTableSection name="Kelas" props={{ dense: true }} />
 			</Stack>
 		</>
 	);
@@ -78,36 +77,10 @@ function DataTableSection({ name, props }) {
 	const [dataList, setDataList] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const deletePost = async (id) => {
-		await api.delete(`/mapel/delete/${id}`).then(() => {});
-		setDataList((prev) => prev.filter((item) => item.id !== id)); // Hapus dari state
-	};
-
-	const handleDelete = (id) => {
-		Swal.fire({
-			title: 'Hapus Data ?',
-			text: 'Data yang dihapus tidak dapat dikembalikan !',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes',
-			cancelButtonText: 'Tidak',
-		}).then((result) => {
-			if (result.isConfirmed) {
-				deletePost(id);
-				Swal.fire({
-					title: 'Hapus Berhasil!',
-					text: 'Data Berhasil dihapus !',
-					icon: 'success',
-				});
-			}
-		});
-	};
 
 	const fetchDataList = async () => {
 		try {
-			const response = await api.get('/mapel/get'); // Ganti dengan endpoint yang sesuai
+			const response = await api.get('/kelas/get'); // Ganti dengan endpoint yang sesuai
 			setDataList(response.data);
 		} catch (err) {
 			setError(err.message);
@@ -141,9 +114,9 @@ function DataTableSection({ name, props }) {
 				emptyRowsHeight={{ default: 66.8, dense: 46.8 }}
 				render={(row) => (
 					<TableRow hover tabIndex={-1} key={row.id}>
-						<TableCell size="small">{row.DT_RowIndex}</TableCell>
-						<TableCell align="left">{row.kode}</TableCell>
-						<TableCell align="left">{row?.nama_mapel}</TableCell>
+						<TableCell size='small'>{row.DT_RowIndex}</TableCell>
+						<TableCell align="left">{row.tingkat}</TableCell>
+						<TableCell align="left">{row?.nama_kelas}</TableCell>
 						<TableCell align="right">
 							<Tooltip title="Edit Data" arrow>
 								<IconButton
@@ -151,7 +124,9 @@ function DataTableSection({ name, props }) {
 									color="warning"
 									size="small"
 									sx={{ fontSize: 2 }}
-									onClick={() => navigate(`../mapel/edit/${row.id}`)}
+									onClick={(e) => {
+										e.stopPropagation();
+									}}
 								>
 									<ModeEditOutlineOutlinedIcon fontSize="medium" />
 								</IconButton>
@@ -163,7 +138,9 @@ function DataTableSection({ name, props }) {
 									color="error"
 									size="small"
 									sx={{ fontSize: 2 }}
-									onClick={() => handleDelete(row.id)}
+									onClick={(e) => {
+										e.stopPropagation();
+									}}
 								>
 									<DeleteOutlineIcon fontSize="medium" />
 								</IconButton>
@@ -176,4 +153,4 @@ function DataTableSection({ name, props }) {
 	);
 }
 
-export default MapelPage;
+export default KelasPage;

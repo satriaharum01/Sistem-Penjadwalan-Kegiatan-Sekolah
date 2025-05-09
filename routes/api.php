@@ -30,3 +30,29 @@ Route::prefix('get')->name('get.')->group(function () {
     Route::GET('/fasum/paginate', [App\Http\Controllers\HomeController::class, 'getFasumWithPaginate']);
     Route::GET('/count/fasum', [App\Http\Controllers\HomeController::class, 'countTempatPerJenis']);
 });
+
+
+//Admin Route
+Route::prefix('mapel')->name('mapel.')->group(function () {
+    Route::GET('/get', [App\Http\Controllers\AdminMapelController::class, 'json']);
+    Route::POST('/store', [App\Http\Controllers\AdminMapelController::class, 'store']);
+    Route::POST('/update/{id}', [App\Http\Controllers\AdminMapelController::class, 'update']);
+    Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminMapelController::class, 'destroy']);
+    Route::GET('/find/{id}', [App\Http\Controllers\AdminMapelController::class, 'find']);
+});
+
+Route::prefix('kelas')->name('kelas.')->group(function () {
+    Route::GET('/get', [App\Http\Controllers\AdminKelasController::class, 'json']);
+    Route::POST('/store', [App\Http\Controllers\AdminKelasController::class, 'store']);
+    Route::POST('/update/{id}', [App\Http\Controllers\AdminKelasController::class, 'update']);
+    Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminKelasController::class, 'destroy']);
+    Route::GET('/find/{id}', [App\Http\Controllers\AdminKelasController::class, 'find']);
+});
+
+Route::prefix('guru')->name('guru.')->group(function () {
+    Route::GET('/get', [App\Http\Controllers\AdminGuruController::class, 'json']);
+    Route::POST('/store', [App\Http\Controllers\AdminGuruController::class, 'store']);
+    Route::POST('/update/{id}', [App\Http\Controllers\AdminGuruController::class, 'update']);
+    Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminGuruController::class, 'destroy']);
+    Route::GET('/find/{id}', [App\Http\Controllers\AdminGuruController::class, 'find']);
+});

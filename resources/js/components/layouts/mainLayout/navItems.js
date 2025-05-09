@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SpeedIcon from '@mui/icons-material/Speed';
@@ -30,10 +31,32 @@ const NAV_LINKS_CONFIG = [
 	},
 	{
 		id: uuid(),
+		type: 'group',
+		title: 'Jadwal',
+		Icon: CalendarMonthIcon,
+		menuChildren: [
+			{
+				title: 'Atur Jadwal',
+				href: '/admin/jadwal/new',
+			},
+			{
+				title: 'Data Jadwal',
+				href: '/admin/jadwal/',
+			},
+		]
+	},
+	{
+		id: uuid(),
 		type: 'item',
 		title: 'Mata Pelajaran',
 		Icon: MenuBookIcon,
 		href: '/admin/mapel',
+		menuChildren: [
+			{
+				title: '',
+				href: '/admin/mapel/new',
+			},
+		]
 	},
 	{
 		id: uuid(),

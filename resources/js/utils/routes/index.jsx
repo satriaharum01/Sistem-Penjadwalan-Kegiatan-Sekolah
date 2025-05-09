@@ -20,7 +20,12 @@ const EditProfilePage = withLazyLoadably(lazy(() => import('@/pages/editProfile'
 const NotificationsPage = withLazyLoadably(lazy(() => import('@/pages/notificationsPage')));
 const WIPPage = withLazyLoadably(lazy(() => import('@/pages/wip')));
 const SamplePage = withLazyLoadably(lazy(() => import('@/pages/sample')));
-const MapelPage = withLazyLoadably(lazy(()=> import('@/pages/mataPelajaran')))
+const MapelPage = withLazyLoadably(lazy(() => import('@/pages/mataPelajaran')));
+const NewFormMapel = withLazyLoadably(lazy(() => import('@/pages/mataPelajaran/newFormMapel')));
+const KelasPage = withLazyLoadably(lazy(() => import('@/pages/kelasPages')));
+const NewFormKelas = withLazyLoadably(lazy(() => import('@/pages/kelasPages/newFormKelas')));
+const GuruPage = withLazyLoadably(lazy(() => import('@/pages/guruPages')));
+const NewFormGuru = withLazyLoadably(lazy(() => import('@/pages/guruPages/newFormGuru')));
 
 function Router() {
 	return (
@@ -48,7 +53,17 @@ function Router() {
 								<Route path="dashboard1" element={<Dashboard1Page />} />
 							</Route>
 							<Route path="admin/">
+								{/* List Mapel */}
 								<Route path="mapel" element={<MapelPage />} />
+								<Route path="mapel/new" element={<NewFormMapel />} />
+								<Route path="mapel/edit/:id" element={<NewFormMapel />} />
+								{/* List Kelas */}
+								<Route path="kelas" element={<KelasPage />} />
+								<Route path="kelas/new" element={<NewFormKelas />} />
+								{/* List Guru */}
+								<Route path="guru" element={<GuruPage />} />
+								<Route path="guru/new" element={<NewFormGuru />} />
+								<Route path="guru/edit/:id" element={<NewFormGuru />} />
 							</Route>
 
 							<Route path="pages/">

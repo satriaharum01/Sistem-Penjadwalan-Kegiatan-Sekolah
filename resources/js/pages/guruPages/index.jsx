@@ -30,16 +30,40 @@ const getHeadCells = [
 		label: '',
 	},
 	{
+		id: 'nama_guru',
+		numeric: false,
+		disablePadding: false,
+		label: 'Nama Guru',
+	},
+	{
 		id: 'kode',
 		numeric: false,
 		disablePadding: false,
 		label: 'Kode',
 	},
 	{
-		id: 'nama_mapel',
+		id: 'jam_kerja',
 		numeric: false,
 		disablePadding: false,
-		label: 'Mata Pelajaran',
+		label: 'Jam Kerja',
+	},
+	{
+		id: 'jabatan',
+		numeric: false,
+		disablePadding: false,
+		label: 'Jabatan',
+	},
+	{
+		id: 'tugas_tambahan',
+		numeric: false,
+		disablePadding: false,
+		label: 'Tugas Tambahan',
+	},
+	{
+		id: 'status',
+		numeric: false,
+		disablePadding: false,
+		label: 'Status',
 	},
 	{
 		id: 'options',
@@ -49,17 +73,17 @@ const getHeadCells = [
 	},
 ];
 
-function MapelPage() {
+function GuruPage() {
 	return (
 		<>
-			<PageHeader title="Mata Pelajaran">
+			<PageHeader title="Guru">
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
 						textTransform: 'uppercase',
 					}}
 				>
-					<Typography color="text.tertiary">Mata Pelajaran</Typography>
+					<Typography color="text.tertiary">Guru</Typography>
 					<Link underline="hover" href="/">
 						Home
 					</Link>
@@ -67,7 +91,7 @@ function MapelPage() {
 			</PageHeader>
 
 			<Stack spacing={5}>
-				<DataTableSection name="Mata Peljaran" props={{ dense: true }} />
+				<DataTableSection name="Guru" props={{ dense: true }} />
 			</Stack>
 		</>
 	);
@@ -79,7 +103,7 @@ function DataTableSection({ name, props }) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const deletePost = async (id) => {
-		await api.delete(`/mapel/delete/${id}`).then(() => {});
+		await api.delete(`/guru/delete/${id}`).then(() => {});
 		setDataList((prev) => prev.filter((item) => item.id !== id)); // Hapus dari state
 	};
 
@@ -107,7 +131,7 @@ function DataTableSection({ name, props }) {
 
 	const fetchDataList = async () => {
 		try {
-			const response = await api.get('/mapel/get'); // Ganti dengan endpoint yang sesuai
+			const response = await api.get('/guru/get'); // Ganti dengan endpoint yang sesuai
 			setDataList(response.data);
 		} catch (err) {
 			setError(err.message);
@@ -142,8 +166,12 @@ function DataTableSection({ name, props }) {
 				render={(row) => (
 					<TableRow hover tabIndex={-1} key={row.id}>
 						<TableCell size="small">{row.DT_RowIndex}</TableCell>
-						<TableCell align="left">{row.kode}</TableCell>
-						<TableCell align="left">{row?.nama_mapel}</TableCell>
+						<TableCell>{row.nama_guru}</TableCell>
+						<TableCell>{row.kode}</TableCell>
+						<TableCell>{row.jam_kerja}</TableCell>
+						<TableCell>{row.jabatan}</TableCell>
+						<TableCell>{row.tugas_tambahan}</TableCell>
+						<TableCell>{row.status}</TableCell>
 						<TableCell align="right">
 							<Tooltip title="Edit Data" arrow>
 								<IconButton
@@ -151,7 +179,7 @@ function DataTableSection({ name, props }) {
 									color="warning"
 									size="small"
 									sx={{ fontSize: 2 }}
-									onClick={() => navigate(`../mapel/edit/${row.id}`)}
+									onClick={() => navigate(`../guru/edit/${row.id}`)}
 								>
 									<ModeEditOutlineOutlinedIcon fontSize="medium" />
 								</IconButton>
@@ -176,4 +204,4 @@ function DataTableSection({ name, props }) {
 	);
 }
 
-export default MapelPage;
+export default GuruPage;

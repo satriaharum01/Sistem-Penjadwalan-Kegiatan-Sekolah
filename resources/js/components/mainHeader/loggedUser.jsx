@@ -48,8 +48,6 @@ function LoggedUser() {
 		import(`@/assets/images/avatars/${dataUser.faces}`)
 			.then((image) => setAvatar(image.default))
 			.catch(() => setAvatar('/assets/images/avatars/default.png'));
-		console.log(dataUser);
-		console.log(avatar);
 	}, [dataUser]);
 
 	const avatarPath = dataUser?.faces ? avatar : default1;
