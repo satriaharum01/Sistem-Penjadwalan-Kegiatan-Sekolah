@@ -37,7 +37,7 @@ const NAV_LINKS_CONFIG = [
 		menuChildren: [
 			{
 				title: 'Atur Jadwal',
-				href: '/admin/jadwal/new',
+				href: '/admin/jadwal/setup',
 			},
 			{
 				title: 'Data Jadwal',

@@ -31,6 +31,8 @@ Route::prefix('get')->name('get.')->group(function () {
     Route::GET('/count/fasum', [App\Http\Controllers\HomeController::class, 'countTempatPerJenis']);
 });
 
+Route::get('/generate-jadwal', [App\Http\Controllers\JadwalController::class, 'generate']);
+Route::get('/group-jadwal', [App\Http\Controllers\JadwalController::class, 'groupSchedule']);
 
 //Admin Route
 Route::prefix('mapel')->name('mapel.')->group(function () {
@@ -55,4 +57,13 @@ Route::prefix('guru')->name('guru.')->group(function () {
     Route::POST('/update/{id}', [App\Http\Controllers\AdminGuruController::class, 'update']);
     Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminGuruController::class, 'destroy']);
     Route::GET('/find/{id}', [App\Http\Controllers\AdminGuruController::class, 'find']);
+});
+
+//Jadwal Time Range
+Route::prefix('jadwal')->name('jadwal.')->group(function () {
+    Route::GET('/get', [App\Http\Controllers\AdminJadwalController::class, 'json']);
+    Route::POST('/store', [App\Http\Controllers\AdminJadwalController::class, 'store']);
+    Route::POST('/update/{id}', [App\Http\Controllers\AdminJadwalController::class, 'update']);
+    Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminJadwalController::class, 'destroy']);
+    Route::GET('/find/{id}', [App\Http\Controllers\AdminJadwalController::class, 'find']);
 });
