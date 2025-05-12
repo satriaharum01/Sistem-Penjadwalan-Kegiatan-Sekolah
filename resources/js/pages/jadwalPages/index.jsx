@@ -42,6 +42,12 @@ const getHeadCells = [
 		label: 'Periode',
 	},
 	{
+		id: 'jenis',
+		numeric: false,
+		disablePadding: false,
+		label: 'Jenis Jam',
+	},
+	{
 		id: 'options',
 		numeric: true,
 		disablePadding: false,
@@ -144,6 +150,7 @@ function DataTableSection({ name, props }) {
 						<TableCell size="small">{row.DT_RowIndex}</TableCell>
 						<TableCell align="left">{row.hari}</TableCell>
 						<TableCell align="left">{row?.periode}</TableCell>
+						<TableCell align="left">{row?.jenis}</TableCell>
 						<TableCell align="right">
 							<Tooltip title="Edit Data" arrow>
 								<IconButton

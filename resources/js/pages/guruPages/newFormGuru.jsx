@@ -91,7 +91,7 @@ function FormSection({ variant, title }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (id) {
-			await api.put(`/guru/update/${id}`, form);
+			await api.post(`/guru/update/${id}`, form);
 		} else {
 			await api.post('/guru/store', form);
 		}

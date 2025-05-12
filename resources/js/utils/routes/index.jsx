@@ -26,6 +26,7 @@ const KelasPage = withLazyLoadably(lazy(() => import('@/pages/kelasPages')));
 const NewFormKelas = withLazyLoadably(lazy(() => import('@/pages/kelasPages/newFormKelas')));
 const GuruPage = withLazyLoadably(lazy(() => import('@/pages/guruPages')));
 const NewFormGuru = withLazyLoadably(lazy(() => import('@/pages/guruPages/newFormGuru')));
+const NewFormGuruMapel = withLazyLoadably(lazy(() => import('@/pages/guruPages/newFormGuruMapel')));
 const JadwalPage = withLazyLoadably(lazy(() => import('@/pages/jadwalPages')));
 const NewFormJadwal = withLazyLoadably(lazy(() => import('@/pages/jadwalPages/newFormJadwal')));
 
@@ -66,6 +67,7 @@ function Router() {
 								<Route path="guru" element={<GuruPage />} />
 								<Route path="guru/new" element={<NewFormGuru />} />
 								<Route path="guru/edit/:id" element={<NewFormGuru />} />
+								<Route path="guru/mapel/:id" element={<NewFormGuruMapel />} />
 								{/* List Guru */}
 								<Route path="jadwal" element={<JadwalPage />} />
 								<Route path="jadwal/setup" element={<JadwalPage />} />

@@ -11,17 +11,19 @@ class Slots extends Model
     use HasFactory;
     protected $table = 'slots';
     protected $primaryKey = 'id';
-    protected $fillable = ['hari','jam_mulai','jam_akhir'];
+    protected $fillable = ['hari','mulai','selesai','jenis'];
     protected $inputType = [
         'hari' => 'text',
-        'jam_mulai' => 'time',
-        'jam_akhir' => 'time'
+        'mulai' => 'time',
+        'selesai' => 'time',
+        'jenis' => 'text'
     ];
 
     public static function validate($data)
     {
         return Validator::make($data, [
-            'hari'         => 'required|string'
+            'hari'         => 'required|string',
+            'jenis'         => 'required|string'
         ]);
     }
 

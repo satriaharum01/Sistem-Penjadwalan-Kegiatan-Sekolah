@@ -44,7 +44,7 @@ class GuruMapel extends Model
     {
         return $this->belongsTo(Mapel::class, 'mapel_id')->withDefault(function ($data) {
             if (collect($data->getFillable())->every(fn ($attr) => $data->$attr === null)) {
-                return 'Undefined';
+                return 'Belum ada Mapel';
             }
             return $data;
         });

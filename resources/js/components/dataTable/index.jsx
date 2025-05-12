@@ -148,7 +148,7 @@ function EnhancedTable(props) {
 				page={page}
 				onPageChange={handleChangePage}
 				onRowsPerPageChange={handleChangeRowsPerPage}
-				labelRowsPerPage="Result per Page"
+				//labelRowsPerPage="Result per Page"
 			/>
 		</>
 	);

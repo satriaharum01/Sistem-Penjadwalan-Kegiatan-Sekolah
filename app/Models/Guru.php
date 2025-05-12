@@ -37,4 +37,8 @@ class Guru extends Model
         return $this->inputType;
     }
 
+    public function guruMapels()
+    {
+        return $this->hasMany(GuruMapel::class);
+    }
 }

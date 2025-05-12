@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //Use Models
 use App\Models\Guru;
+use App\Models\GuruMapel;
 use Yajra\DataTables\Facades\DataTables;
 use File;
 
@@ -12,8 +13,8 @@ class AdminGuruController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('is_admin');
+        //$this->middleware('auth');
+        //$this->middleware('is_admin');
     }
 
     public function getFormSchema()
@@ -27,10 +28,11 @@ class AdminGuruController extends Controller
     }
     public function json()
     {
-        $data = Guru::select('*')
+        $data = Guru::with(['guruMapels.cariMapel'])
                 ->orderby('nama_guru', 'ASC')
                 ->get()->map(function ($item, $index) {
                     $item->DT_RowIndex = $index + 1;
+                    $item->mapel = $item->guruMapels->map(fn ($gm) => $gm->cariMapel->nama_mapel)->implode(', ');
                     return $item;
                 });
 
@@ -89,6 +91,26 @@ class AdminGuruController extends Controller
         $data->save();
 
         return response()->json(['message' => 'Data created successfully', 'result' => $data], 201);
+    }
+
+    public function storeMapel(Request $request)
+    {
+        $request->validate([
+            'guru_id' => 'required|exists:guru,id',
+            'mapel_id' => 'required|array',
+            'mapel_id.*' => 'exists:mapel,id',
+        ]);
+
+        GuruMapel::where('guru_id', $request->guru_id)->delete();
+        
+        foreach ($request->mapel_id as $mapelId) {
+            GuruMapel::firstOrCreate([
+                'guru_id' => $request->guru_id,
+                'mapel_id' => $mapelId,
+            ]);
+        }
+
+        return response()->json(['message' => 'Data created successfully', 'result' => $mapelId], 201);
     }
 
     public function destroy($id)

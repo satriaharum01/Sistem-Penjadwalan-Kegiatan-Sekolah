@@ -12,6 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import AddIcon from '@mui/icons-material/Add';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 //Components
 import PageHeader from '@/components/pageHeader';
 import CardHeader from '@/components/cardHeader';
@@ -48,10 +49,10 @@ const getHeadCells = [
 		label: 'Jam Kerja',
 	},
 	{
-		id: 'jabatan',
+		id: 'mapel',
 		numeric: false,
 		disablePadding: false,
-		label: 'Jabatan',
+		label: 'Mata Pelajaran',
 	},
 	{
 		id: 'tugas_tambahan',
@@ -169,10 +170,22 @@ function DataTableSection({ name, props }) {
 						<TableCell>{row.nama_guru}</TableCell>
 						<TableCell>{row.kode}</TableCell>
 						<TableCell>{row.jam_kerja}</TableCell>
-						<TableCell>{row.jabatan}</TableCell>
+						<TableCell>{row.mapel}</TableCell>
 						<TableCell>{row.tugas_tambahan}</TableCell>
 						<TableCell>{row.status}</TableCell>
-						<TableCell align="right">
+						<TableCell align="right" sx={{ width: 150 }}>
+							<Tooltip title="Atur Mapel" arrow>
+								<IconButton
+									aria-label="setup"
+									color="success"
+									size="small"
+									sx={{ fontSize: 2 }}
+									onClick={() => navigate(`../guru/mapel/${row.id}`)}
+								>
+									<MenuBookOutlinedIcon fontSize="medium" />
+								</IconButton>
+							</Tooltip>
+
 							<Tooltip title="Edit Data" arrow>
 								<IconButton
 									aria-label="edit"

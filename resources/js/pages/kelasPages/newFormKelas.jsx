@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import { MenuItem } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
@@ -22,9 +23,12 @@ import PageHeader from '@/components/pageHeader';
 import CardHeader from '@/components/cardHeader';
 import DataTable from '@/components/dataTable';
 //React
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import api from '../../api';
+import tingkatanMenuItems from './tingkatanMenuItems';
 
-function NewFormKelas() {
+function NewFormJadwal() {
 	return (
 		<>
 			<PageHeader title="Kelas">
@@ -49,35 +53,108 @@ function NewFormKelas() {
 }
 
 function FormSection({ variant, title }) {
+	const { id } = useParams(); // id dari URL, misal edit/:id
 	const navigate = useNavigate();
+
+	const [form, setForm] = useState({
+		hari: '',
+		mulai: '',
+		selesai: '',
+		jenis: '',
+	});
+
+	// Untuk edit: load data by ID
+	useEffect(() => {
+		if (id) {
+			api.get(`/jadwal/find/${id}`).then((res) => {
+				setForm({
+					nama_kelas: res.data.nama_kelas,
+					tingkat: res.data.tingkat,
+				});
+			});
+		}
+	}, [id]);
+
+	const handleChange = (e) => {
+		setForm({
+			...form,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (id) {
+			await api.post(`/kelas/update/${id}`, form);
+		} else {
+			await api.post('/kelas/store', form);
+		}
+		navigate('/admin/kelas');
+	};
 
 	return (
 		<Card type="section">
-			<CardHeader title={`Form Input Data ${title}`} />
-			<Grid container rowSpacing={2} columnSpacing={4}>
-				<Grid item xs={12} sm={8}>
-					<TextField label="Nama Kelas" variant={variant} fullWidth />
-				</Grid>
-				<Grid item xs={12} sm={4}>
-					<TextField label="Tingkatan" variant={variant} fullWidth />
-				</Grid>
-				<Grid item xs={12}>
-					<Grid container justifyContent="flex-end" spacing={1}>
-						<Grid item>
-							<Button variant="contained" color='error' disableElevation endIcon={<KeyboardBackspaceIcon />} onClick={() => navigate('../mapel')}>
-								Kembali
-							</Button>
-						</Grid>
-						<Grid item>
-							<Button variant="contained" disableElevation endIcon={<SaveAltIcon />}>
-								Simpan
-							</Button>
+			<form onSubmit={handleSubmit}>
+				<CardHeader title={`Form Input Data ${title}`} />
+				<Grid container rowSpacing={2} columnSpacing={4}>
+					<Grid item xs={12} sm={4}>
+						<TextField
+							select
+							label="Tingkatan"
+							variant={variant}
+							fullWidth
+							name="tingkat"
+							value={form.tingkat}
+							onChange={handleChange}
+						>
+							<MenuItem value="">-- Pilih Tingkatan --</MenuItem>
+							{tingkatanMenuItems.map((item) => (
+								<MenuItem key={item.value} value={item.value}>
+									{item.label}
+								</MenuItem>
+							))}
+						</TextField>
+					</Grid>
+					<Grid item xs={12} sm={8}>
+						<TextField
+							label="Nama Kelas"
+							variant={variant}
+							fullWidth
+							name="nama_kelas"
+							value={form.nama_kelas}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<Grid container justifyContent="flex-end" spacing={1}>
+							<Grid item>
+								<Button
+									variant="contained"
+									color="error"
+									disableElevation
+									endIcon={<KeyboardBackspaceIcon />}
+									onClick={() => navigate('../jadwal/setup')}
+								>
+									Kembali
+								</Button>
+							</Grid>
+							<Grid item>
+								<Button
+									type="submit"
+									variant="contained"
+									color={id ? 'success' : 'primary'}
+									disableElevation
+									endIcon={<SaveAltIcon />}
+								>
+									{id ? 'Update' : 'Simpan'}
+								</Button>
+							</Grid>
 						</Grid>
 					</Grid>
 				</Grid>
-			</Grid>
+			</form>
 		</Card>
 	);
 }
 
-export default NewFormKelas;
+export default NewFormJadwal;

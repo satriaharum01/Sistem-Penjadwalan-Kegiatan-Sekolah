@@ -20,8 +20,8 @@ class Mapel extends Model
     public static function validate($data)
     {
         return Validator::make($data, [
-            'nama_mapel'         => 'required|string|max:30',
-            'kode'       => 'required|string|max:4|min:2'
+            'nama_mapel'         => 'required|string|max:50',
+            'kode'       => 'required|string|max:8|min:2'
         ]);
     }
 

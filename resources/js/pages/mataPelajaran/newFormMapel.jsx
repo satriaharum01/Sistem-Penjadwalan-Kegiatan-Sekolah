@@ -25,6 +25,7 @@ import DataTable from '@/components/dataTable';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../../api';
+import Swal from 'sweetalert2';
 
 function NewFormMapel() {
 	return (
@@ -80,10 +81,54 @@ function FormSection({ variant, title }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		Swal.fire({
+			title: 'Menyimpan...',
+			text: 'Mohon tunggu',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			},
+		});
 		if (id) {
-			await api.put(`/mapel/update/${id}`, form);
+			await api
+				.post(`/mapel/update/${id}`, form)
+				.then(() => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Berhasil!',
+						text: 'Data berhasil disimpan',
+						timer: 1500,
+						showConfirmButton: false,
+					});
+				})
+				.catch((err) => {
+					console.error(err);
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal!',
+						text: 'Gagal menyimpan data',
+					});
+				});
 		} else {
-			await api.post('/mapel/store', form);
+			await api
+				.post('/mapel/store', form)
+				.then(() => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Berhasil!',
+						text: 'Data berhasil disimpan',
+						timer: 1500,
+						showConfirmButton: false,
+					});
+				})
+				.catch((err) => {
+					console.error(err);
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal!',
+						text: 'Gagal menyimpan data',
+					});
+				});
 		}
 		navigate('/admin/mapel');
 	};
@@ -127,7 +172,13 @@ function FormSection({ variant, title }) {
 								</Button>
 							</Grid>
 							<Grid item>
-								<Button type="submit" variant="contained" color={id ? 'success' : 'primary'} disableElevation endIcon={<SaveAltIcon />}>
+								<Button
+									type="submit"
+									variant="contained"
+									color={id ? 'success' : 'primary'}
+									disableElevation
+									endIcon={<SaveAltIcon />}
+								>
 									{id ? 'Update' : 'Simpan'}
 								</Button>
 							</Grid>

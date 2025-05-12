@@ -27,6 +27,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../../api';
 import hariMenuItems from './hariMenuItems';
+import jenisMenuItems from './jenisMenuItems';
 
 function NewFormJadwal() {
 	return (
@@ -58,8 +59,9 @@ function FormSection({ variant, title }) {
 
 	const [form, setForm] = useState({
 		hari: '',
-		jam_mulai: '',
-		jam_akhir: '',
+		mulai: '',
+		selesai: '',
+		jenis: '',
 	});
 
 	// Untuk edit: load data by ID
@@ -68,8 +70,9 @@ function FormSection({ variant, title }) {
 			api.get(`/jadwal/find/${id}`).then((res) => {
 				setForm({
 					hari: res.data.hari,
-					jam_mulai: res.data.jam_mulai,
-					jam_akhir: res.data.jam_akhir,
+					mulai: res.data.mulai,
+					selesai: res.data.selesai,
+					jenis: res.data.jenis,
 				});
 			});
 		}
@@ -85,7 +88,7 @@ function FormSection({ variant, title }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (id) {
-			await api.put(`/jadwal/update/${id}`, form);
+			await api.post(`/jadwal/update/${id}`, form);
 		} else {
 			await api.post('/jadwal/store', form);
 		}
@@ -97,7 +100,7 @@ function FormSection({ variant, title }) {
 			<form onSubmit={handleSubmit}>
 				<CardHeader title={`Form Input Data ${title}`} />
 				<Grid container rowSpacing={2} columnSpacing={4}>
-					<Grid item xs={12} sm={4}>
+					<Grid item xs={12} sm={6}>
 						<TextField
 							select
 							label="Hari"
@@ -115,25 +118,43 @@ function FormSection({ variant, title }) {
 							))}
 						</TextField>
 					</Grid>
-					<Grid item xs={12} sm={4}>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							select
+							label="Jenis Jam"
+							variant={variant}
+							fullWidth
+							name="jenis"
+							value={form.jenis}
+							onChange={handleChange}
+						>
+							<MenuItem value="">-- Pilih Jenis --</MenuItem>
+							{jenisMenuItems.map((item) => (
+								<MenuItem key={item.value} value={item.value}>
+									{item.label}
+								</MenuItem>
+							))}
+						</TextField>
+					</Grid>
+					<Grid item xs={12} sm={6}>
 						<TextField
 							label="Jam Mulai"
 							variant={variant}
 							type="time"
 							fullWidth
-							name="jam_mulai"
-							value={form.jam_mulai}
+							name="mulai"
+							value={form.mulai}
 							onChange={handleChange}
 						/>
 					</Grid>
-					<Grid item xs={12} sm={4}>
+					<Grid item xs={12} sm={6}>
 						<TextField
 							label="Jam Selesai"
 							variant={variant}
 							type="time"
 							fullWidth
-							name="jam_akhir"
-							value={form.jam_akhir}
+							name="selesai"
+							value={form.selesai}
 							onChange={handleChange}
 						/>
 					</Grid>

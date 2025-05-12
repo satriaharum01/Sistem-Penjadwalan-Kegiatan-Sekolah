@@ -54,6 +54,7 @@ Route::prefix('kelas')->name('kelas.')->group(function () {
 Route::prefix('guru')->name('guru.')->group(function () {
     Route::GET('/get', [App\Http\Controllers\AdminGuruController::class, 'json']);
     Route::POST('/store', [App\Http\Controllers\AdminGuruController::class, 'store']);
+    Route::post('/guru-mapel/store', [App\Http\Controllers\AdminGuruController::class, 'storeMapel']);
     Route::POST('/update/{id}', [App\Http\Controllers\AdminGuruController::class, 'update']);
     Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminGuruController::class, 'destroy']);
     Route::GET('/find/{id}', [App\Http\Controllers\AdminGuruController::class, 'find']);

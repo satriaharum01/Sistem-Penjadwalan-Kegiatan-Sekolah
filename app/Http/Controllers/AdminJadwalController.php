@@ -28,10 +28,10 @@ class AdminJadwalController extends Controller
     public function json()
     {
         $data = Slots::select('*')
-                ->orderby('hari', 'ASC')
+                ->orderby('id', 'ASC')
                 ->get()->map(function ($item, $index) {
                     $item->DT_RowIndex = $index + 1;
-                    $item->periode = date('h:i',strtotime($item->jam_mulai)) . ' - '. date('h:i',strtotime($item->jam_akhir));
+                    $item->periode = date('h:i', strtotime($item->mulai)) . ' - '. date('h:i', strtotime($item->selesai));
                     return $item;
                 });
 
