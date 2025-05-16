@@ -6,6 +6,7 @@ const jenisMenuItems = [
     { value: 'Motivasi', label: 'Motivasi' },
     { value: "Rame Rame", label: "Rame Rame" },
     { value: 'Saberling', label: 'Saberling' },
+    { value: 'Religi', label: 'Religi' },
     { value: 'Ceria', label: 'Ceria' },
 ];
 

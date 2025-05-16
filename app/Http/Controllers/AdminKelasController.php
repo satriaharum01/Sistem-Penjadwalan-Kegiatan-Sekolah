@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //Use Models
 use App\Models\Kelas;
+use App\Models\KelasMapel;
 use Yajra\DataTables\Facades\DataTables;
 use File;
 
@@ -12,8 +13,8 @@ class AdminKelasController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('is_admin');
+        //$this->middleware('auth');
+        //$this->middleware('is_admin');
     }
 
     public function getFormSchema()
@@ -27,10 +28,14 @@ class AdminKelasController extends Controller
     }
     public function json()
     {
-        $data = Kelas::select('*')
+        $data = Kelas::with(['kelasMapels.cariMapel'])
                 ->orderby('nama_kelas', 'ASC')
                 ->get()->map(function ($item, $index) {
                     $item->DT_RowIndex = $index + 1;
+                    $item->mapel = $item->kelasMapels->map(fn ($gm) => $gm->cariMapel->kode)->implode(', ');
+                    if (empty($item->mapel)) {
+                        $item->mapel = 'Belum di Set';
+                    }
                     return $item;
                 });
 
@@ -48,6 +53,23 @@ class AdminKelasController extends Controller
         }
     }
 
+    public function show($kelasId)
+    {
+        $kelasMapel = KelasMapel::with('gurus')
+            ->where('kelas_id', $kelasId)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'mapel_id' => $item->mapel_id,
+                    'total_jam' => $item->total_jam,
+                    'min_pertemuan' => $item->min_pertemuan,
+                    'max_pertemuan' => $item->max_pertemuan,
+                    'guru_ids' => $item->gurus->pluck('id'),
+                ];
+            });
+
+        return response()->json($kelasMapel);
+    }
     //CRUD
     public function update(Request $request, $id)
     {
@@ -89,6 +111,35 @@ class AdminKelasController extends Controller
         $data->save();
 
         return response()->json(['message' => 'Data created successfully', 'result' => $data], 201);
+    }
+
+    public function storeKelasMapelGuru(Request $request)
+    {
+        $kelasId = $request->kelas_id;
+        $forms = $request->forms;
+
+        // Hapus data lama
+        $existing = KelasMapel::where('kelas_id', $kelasId)->get();
+        foreach ($existing as $item) {
+            $item->gurus()->detach(); // hapus relasi guru dulu
+            $item->delete();          // hapus mapel dari kelas
+        }
+
+        foreach ($forms as $form) {
+            $kelasMapel = KelasMapel::updateOrCreate([
+                'kelas_id' => $kelasId,
+                'mapel_id' => $form['mapel_id'],
+                'total_jam' => $form['total_jam'],
+                'min_pertemuan' => $form['min_pertemuan'],
+                'max_pertemuan' => $form['max_pertemuan']
+            ]);
+
+            if (!empty($form['guru_ids'])) {
+                $kelasMapel->gurus()->sync($form['guru_ids']);
+            }
+        }
+
+        return response()->json(['message' => 'Data created successfully', 'result' => $forms], 201);
     }
 
     public function destroy($id)

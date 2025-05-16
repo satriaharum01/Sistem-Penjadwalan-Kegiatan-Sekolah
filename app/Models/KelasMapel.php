@@ -11,17 +11,23 @@ class KelasMapel extends Model
     use HasFactory;
     protected $table = 'kelas_mapel';
     protected $primaryKey = 'id';
-    protected $fillable = ['kelas_id','mapel_id'];
+    protected $fillable = ['kelas_id','mapel_id','total_jam','min_pertemuan','max_pertemuan'];
     protected $inputType = [
         'kelas_id' => 'select',
-        'mapel_id' => 'select'
+        'mapel_id' => 'select',
+        'total_jam' => 'number',
+        'min_pertemuan' => 'number',
+        'max_pertemuan' => 'number'
     ];
 
     public static function validate($data)
     {
         return Validator::make($data, [
             'kelas_id'         => 'required|numeric',
-            'mapel_id'       => 'required|numeric'
+            'mapel_id'       => 'required|numeric',
+            'total_jam'       => 'required|numeric',
+            'min_pertemuan'       => 'required|numeric',
+            'max_pertemuan'       => 'required|numeric'
         ]);
     }
 
@@ -48,5 +54,16 @@ class KelasMapel extends Model
             }
             return $data;
         });
+    }
+
+    public function gurus()
+    {
+        return $this->belongsToMany(Guru::class, 'kelas_mapel_guru')
+                ->withPivot('guru_id'); 
+    }
+    
+    public function kelasMapelGuru()
+    {
+        return $this->hasMany(KelasMapelGuru::class);
     }
 }

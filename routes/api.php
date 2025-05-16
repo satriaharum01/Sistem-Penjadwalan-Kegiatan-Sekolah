@@ -32,7 +32,9 @@ Route::prefix('get')->name('get.')->group(function () {
 });
 
 Route::get('/generate-jadwal', [App\Http\Controllers\JadwalController::class, 'generate']);
+Route::get('/generate-csp', [App\Http\Controllers\JadwalController::class, 'generateCSP']);
 Route::get('/group-jadwal', [App\Http\Controllers\JadwalController::class, 'groupSchedule']);
+Route::get('/generate-jjj', [App\Http\Controllers\JadwalController::class, 'generateJadwal1']);
 
 //Admin Route
 Route::prefix('mapel')->name('mapel.')->group(function () {
@@ -49,10 +51,13 @@ Route::prefix('kelas')->name('kelas.')->group(function () {
     Route::POST('/update/{id}', [App\Http\Controllers\AdminKelasController::class, 'update']);
     Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminKelasController::class, 'destroy']);
     Route::GET('/find/{id}', [App\Http\Controllers\AdminKelasController::class, 'find']);
+    Route::GET('/kelas-mapel/get/{kelas_id}', [App\Http\Controllers\AdminKelasController::class, 'show']);
+    Route::post('/kelas-mapel/store', [App\Http\Controllers\AdminKelasController::class, 'storeKelasMapelGuru']);
 });
 
 Route::prefix('guru')->name('guru.')->group(function () {
     Route::GET('/get', [App\Http\Controllers\AdminGuruController::class, 'json']);
+    Route::get('/guru-by-mapel/{mapel_id}', [App\Http\Controllers\AdminGuruController::class, 'getGuruByMapel']);
     Route::POST('/store', [App\Http\Controllers\AdminGuruController::class, 'store']);
     Route::post('/guru-mapel/store', [App\Http\Controllers\AdminGuruController::class, 'storeMapel']);
     Route::POST('/update/{id}', [App\Http\Controllers\AdminGuruController::class, 'update']);

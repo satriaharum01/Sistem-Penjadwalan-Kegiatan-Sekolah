@@ -12,8 +12,8 @@ class AdminJadwalController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('is_admin');
+        //$this->middleware('auth');
+        //$this->middleware('is_admin');
     }
 
     public function getFormSchema()
@@ -28,7 +28,8 @@ class AdminJadwalController extends Controller
     public function json()
     {
         $data = Slots::select('*')
-                ->orderby('id', 'ASC')
+                ->orderByRaw("FIELD(hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu')")
+                ->orderby('mulai', 'ASC')
                 ->get()->map(function ($item, $index) {
                     $item->DT_RowIndex = $index + 1;
                     $item->periode = date('h:i', strtotime($item->mulai)) . ' - '. date('h:i', strtotime($item->selesai));

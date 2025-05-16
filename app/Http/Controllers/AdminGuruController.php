@@ -38,6 +38,15 @@ class AdminGuruController extends Controller
 
         return response()->json($data);
     }
+    
+    public function getGuruByMapel($mapel_id)
+    {
+        $gurus = Guru::whereHas('guruMapels', function ($q) use ($mapel_id) {
+            $q->where('mapel_id', $mapel_id);
+        })->select('id', 'nama_guru')->get();
+    
+        return response()->json($gurus);
+    }
 
     public function find($id)
     {

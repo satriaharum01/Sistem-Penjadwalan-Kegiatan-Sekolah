@@ -34,6 +34,11 @@ class HomeController extends Controller
         return view('map', $this->data);
     }
 
+    public function generateStreamJadwal()
+    {
+        return view('log', $this->data);
+    }
+    
     public function login()
     {
         $this->data['alertMessage'] = '';

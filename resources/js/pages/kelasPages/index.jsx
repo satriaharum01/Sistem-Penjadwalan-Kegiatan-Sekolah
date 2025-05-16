@@ -12,6 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import AddIcon from '@mui/icons-material/Add';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 //Components
 import PageHeader from '@/components/pageHeader';
 import CardHeader from '@/components/cardHeader';
@@ -39,6 +40,12 @@ const getHeadCells = [
 		numeric: false,
 		disablePadding: false,
 		label: 'Kelas',
+	},
+	{
+		id: 'mapel',
+		numeric: false,
+		disablePadding: false,
+		label: 'Mata Pelajaran',
 	},
 	{
 		id: 'options',
@@ -117,7 +124,20 @@ function DataTableSection({ name, props }) {
 						<TableCell size='small'>{row.DT_RowIndex}</TableCell>
 						<TableCell align="left">{row.tingkat}</TableCell>
 						<TableCell align="left">{row?.nama_kelas}</TableCell>
-						<TableCell align="right">
+						<TableCell align="left">{row?.mapel}</TableCell>
+						<TableCell align="right" sx={{ width: 150 }}>
+							<Tooltip title="Atur Mapel" arrow>
+								<IconButton
+									aria-label="setup"
+									color="success"
+									size="small"
+									sx={{ fontSize: 2 }}
+									onClick={() => navigate(`../kelas/mapel/${row.id}`)}
+								>
+									<MenuBookOutlinedIcon fontSize="medium" />
+								</IconButton>
+							</Tooltip>
+							
 							<Tooltip title="Edit Data" arrow>
 								<IconButton
 									aria-label="edit"

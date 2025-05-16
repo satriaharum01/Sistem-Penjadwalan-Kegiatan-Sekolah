@@ -30,4 +30,8 @@ class Kelas extends Model
         return $this->inputType;
     }
 
+    public function kelasMapels()
+    {
+        return $this->hasMany(KelasMapel::class);
+    }
 }
