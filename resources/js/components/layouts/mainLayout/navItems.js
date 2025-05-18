@@ -27,7 +27,7 @@ const NAV_LINKS_CONFIG = [
 		type: 'item',
 		title: 'Dashboard',
 		Icon: SpeedIcon,
-		href: '/dashboards/dashboard1',
+		href: '/admin/dashboard',
 	},
 	{
 		id: uuid(),

@@ -5,23 +5,18 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Tooltip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
-import EventBusyIcon from '@mui/icons-material/EventBusy';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 //Components
 import PageHeader from '@/components/pageHeader';
 import CardHeader from '@/components/cardHeader';
-import DataTable from '@/components/dataTable';
 //React
 import api from '../../api';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 const getHeadCells = [
@@ -32,35 +27,42 @@ const getHeadCells = [
 		label: '',
 	},
 	{
-		id: 'tingkatan',
+		id: 'jam',
 		numeric: false,
 		disablePadding: false,
-		label: 'Tingkatan',
-	},
-	{
-		id: 'nama_kelas',
-		numeric: false,
-		disablePadding: false,
-		label: 'Kelas',
+		label: 'Jam',
 	},
 	{
 		id: 'mapel',
 		numeric: false,
 		disablePadding: false,
-		label: 'Agenda',
+		label: 'Mata Pelajaran',
 	},
 	{
-		id: 'options',
-		numeric: true,
+		id: 'guru',
+		numeric: false,
 		disablePadding: false,
-		label: 'Aksi',
+		label: 'Guru',
 	},
 ];
 
-function JadwalPage() {
+function jadwalKelas() {
+	const { id } = useParams();
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	const [kelas, setKelas] = useState(null);
+
+	useEffect(() => {
+		if (id) {
+			api.get(`/kelas/find/${id}`).then((res) => {
+				setKelas(res.data.nama_kelas);
+			});
+		}
+	}, []);
+
 	return (
 		<>
-			<PageHeader title="Jadwal Kelas">
+			<PageHeader title={`Roster Kelas ${kelas}`} >
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
@@ -75,21 +77,23 @@ function JadwalPage() {
 			</PageHeader>
 
 			<Stack spacing={5}>
-				<DataTableSection name="Jadwal Kelas" props={{ dense: true }} />
+				<DataTableSection name={`Jadwal Kelas ${kelas}`} props={{ dense: true }} />
 			</Stack>
 		</>
 	);
 }
 
 function DataTableSection({ name, props }) {
+	const { id } = useParams();
 	const navigate = useNavigate();
-	const [dataList, setDataList] = useState([]);
+
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [dataList, setDataList] = useState([]);
 
 	const fetchDataList = async () => {
 		try {
-			const response = await api.get('/jadwal/agenda'); // Ganti dengan endpoint yang sesuai
+			const response = await api.get(`/jadwal/kelas/agenda/${id}`); // Ganti dengan endpoint yang sesuai
 			setDataList(response.data);
 		} catch (err) {
 			setError(err.message);
@@ -109,44 +113,48 @@ function DataTableSection({ name, props }) {
 		error && <Typography color="error">{error}</Typography>;
 	}
 
+	const renderRow = (row, i) => {
+		if (row.isHari) {
+			return (
+				<TableRow key={`hari-${i}`}>
+					<TableCell colSpan={5} sx={{ fontWeight: 'bold', backgroundColor: '#eee' }}>
+						{row.hari}
+					</TableCell>
+				</TableRow>
+			);
+		}
+		return (
+			<TableRow hover key={`row-${i}`}>
+				<TableCell>{row.index}</TableCell>
+				<TableCell>
+					{row.mulai} - {row.selesai}
+				</TableCell>
+				<TableCell>{row.mapel}</TableCell>
+				<TableCell>{row.guru}</TableCell>
+			</TableRow>
+		);
+	};
+
 	return (
 		<Card component="section" type="section">
 			<CardHeader title={`List Data ${name} `} subtitle=""></CardHeader>
-			<DataTable
-				{...props}
-				headCells={getHeadCells}
-				rows={dataList}
-				emptyRowsHeight={{ default: 66.8, dense: 46.8 }}
-				render={(row) => (
-					<TableRow hover tabIndex={-1} key={row.id}>
-						<TableCell size="small">{row.DT_RowIndex}</TableCell>
-						<TableCell align="left">{row.tingkat}</TableCell>
-						<TableCell align="left">{row?.nama_kelas}</TableCell>
-						<TableCell align="left">{row?.agenda}</TableCell>
-						<TableCell align="right" sx={{ width: 150 }}>
-							<Tooltip title="Lihat Roster" arrow>
-								{row.agenda !== 'Belum di Set' ? (
-									<IconButton
-										aria-label="roster"
-										color="success"
-										size="small"
-										sx={{ fontSize: 2}}
-										onClick={() => navigate(`../jadwal/kelas/${row.id}`)}
-									>
-										<EditCalendarIcon fontSize="medium" />
-									</IconButton>
-								) : (
-									<IconButton aria-label="roster" color="error" size="small" sx={{ fontSize: 2, cursor: 'not-allowed' }}>
-										<EventBusyIcon fontSize="medium" />
-									</IconButton>
-								)}
-							</Tooltip>
-						</TableCell>
-					</TableRow>
-				)}
-			/>
+
+			<TableContainer>
+				<Table size="small" aria-label="custom table">
+					<TableHead>
+						<TableRow>
+							{getHeadCells.map(({ id, label, align = 'left' }) => (
+								<TableCell key={id} align={align}>
+									{label}
+								</TableCell>
+							))}
+						</TableRow>
+					</TableHead>
+					<TableBody>{dataList.map((row, i) => renderRow(row, i))}</TableBody>
+				</Table>
+			</TableContainer>
 		</Card>
 	);
 }
 
-export default JadwalPage;
+export default jadwalKelas;

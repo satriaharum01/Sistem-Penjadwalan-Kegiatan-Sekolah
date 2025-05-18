@@ -34,4 +34,9 @@ class Kelas extends Model
     {
         return $this->hasMany(KelasMapel::class);
     }
+    
+    public function jadwal()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }

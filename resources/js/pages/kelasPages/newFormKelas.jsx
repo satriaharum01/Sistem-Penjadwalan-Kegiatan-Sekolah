@@ -66,7 +66,7 @@ function FormSection({ variant, title }) {
 	// Untuk edit: load data by ID
 	useEffect(() => {
 		if (id) {
-			api.get(`/jadwal/find/${id}`).then((res) => {
+			api.get(`/kelas/find/${id}`).then((res) => {
 				setForm({
 					nama_kelas: res.data.nama_kelas,
 					tingkat: res.data.tingkat,

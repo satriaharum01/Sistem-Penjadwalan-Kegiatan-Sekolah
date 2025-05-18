@@ -117,7 +117,7 @@ function DataTableSection({ name, props }) {
 			<DataTable
 				{...props}
 				headCells={getHeadCells}
-				rows={dataList.slice(0, 27)}
+				rows={dataList}
 				emptyRowsHeight={{ default: 66.8, dense: 46.8 }}
 				render={(row) => (
 					<TableRow hover tabIndex={-1} key={row.id}>

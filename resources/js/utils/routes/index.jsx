@@ -12,7 +12,7 @@ import { AuthProvider } from '../../context/AuthContext';
 
 import Page404 from '@/pages/errorPages/404';
 
-const Dashboard1Page = withLazyLoadably(lazy(() => import('@/pages/dashboardsPages/dashboard1')));
+const DashboardPage = withLazyLoadably(lazy(() => import('@/pages/admDashboardPages')));
 const FormsComponentPage = withLazyLoadably(lazy(() => import('@/pages/componentsPages/forms')));
 const TablesComponentPage = withLazyLoadably(lazy(() => import('@/pages/componentsPages/tables')));
 const LoginSimplePage = withLazyLoadably(lazy(() => import('@/pages/loginPages/loginSimple')));
@@ -29,6 +29,8 @@ const GuruPage = withLazyLoadably(lazy(() => import('@/pages/guruPages')));
 const NewFormGuru = withLazyLoadably(lazy(() => import('@/pages/guruPages/newFormGuru')));
 const NewFormGuruMapel = withLazyLoadably(lazy(() => import('@/pages/guruPages/newFormGuruMapel')));
 const JadwalPage = withLazyLoadably(lazy(() => import('@/pages/jadwalPages')));
+const AturJadwalPage = withLazyLoadably(lazy(() => import('@/pages/jadwalPages/setup')));
+const JadwalKelas = withLazyLoadably(lazy(() => import('@/pages/jadwalPages/jadwalKelas')));
 const NewFormJadwal = withLazyLoadably(lazy(() => import('@/pages/jadwalPages/newFormJadwal')));
 
 function Router() {
@@ -50,11 +52,11 @@ function Router() {
 								</RequireAuth>
 							}
 						>
-							<Route index element={<Dashboard1Page />} />
+							<Route index element={<DashboardPage />} />
 							<Route path="samplePage" element={<SamplePage />} />
 
-							<Route path="dashboards/">
-								<Route path="dashboard1" element={<Dashboard1Page />} />
+							<Route path="admin/">
+								<Route path="dashboard" element={<DashboardPage />} />
 							</Route>
 							<Route path="admin/">
 								{/* List Mapel */}
@@ -73,7 +75,8 @@ function Router() {
 								<Route path="guru/mapel/:id" element={<NewFormGuruMapel />} />
 								{/* List Jadwal */}
 								<Route path="jadwal" element={<JadwalPage />} />
-								<Route path="jadwal/setup" element={<JadwalPage />} />
+								<Route path="jadwal/setup" element={<AturJadwalPage />} />
+								<Route path="jadwal/kelas/:id" element={<JadwalKelas />} />
 								<Route path="jadwal/edit/:id" element={<NewFormJadwal />} />
 								<Route path="jadwal/add/time" element={<NewFormJadwal />} />
 							</Route>

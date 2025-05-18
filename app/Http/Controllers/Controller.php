@@ -64,4 +64,30 @@ class Controller extends BaseController
             File::delete(public_path('/assets/img/faces/' . $filename . ''));
         }
     }
+
+    public function groupByDay($groupedByDayAndClass)
+    {
+        $tableData = [];
+
+        foreach ($groupedByDayAndClass as $day => $classes) {
+            $tableData[] = ['isHari' => true, 'hari' => $day];
+
+            foreach ($classes as $kelasId => $items) {
+                $index = 1;
+                foreach ($items as $item) {
+                    $tableData[] = [
+                        'index' => $index,
+                        'mulai' => $item->slot->mulai,
+                        'selesai' => $item->slot->selesai,
+                        'kelas' => $item->kelas->nama_kelas,
+                        'mapel' => $item->mapel->nama_mapel,
+                        'guru' => $item->guru->nama_guru,
+                    ];
+                    $index++;
+                }
+            }
+        }
+
+        return response()->json($tableData);
+    }
 }

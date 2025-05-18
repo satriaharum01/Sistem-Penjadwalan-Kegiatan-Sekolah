@@ -87,7 +87,7 @@ class JadwalController extends Controller
             }
         }
         // Kembalikan data dalam bentuk tabel
-        return response()->json($tableData);
+        return $groupedByDayAndClass;
         //return response()->json($groupedByDayAndClass);
     }
 
@@ -113,7 +113,7 @@ class JadwalController extends Controller
 
     public function streamLog()
     {
-        
+
         return response()->stream(function () {
             echo "Loading Data ...\n\n";
             foreach (app(JadwalCspService::class)->generateJadwal() as $line) {

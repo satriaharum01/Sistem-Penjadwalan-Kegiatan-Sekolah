@@ -12,7 +12,6 @@ import TableRow from '@mui/material/TableRow';
 import AddIcon from '@mui/icons-material/Add';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 //Components
 import PageHeader from '@/components/pageHeader';
 import CardHeader from '@/components/cardHeader';
@@ -31,40 +30,22 @@ const getHeadCells = [
 		label: '',
 	},
 	{
-		id: 'nama_guru',
+		id: 'hari',
 		numeric: false,
 		disablePadding: false,
-		label: 'Nama Guru',
+		label: 'hari',
 	},
 	{
-		id: 'kode',
+		id: 'periode',
 		numeric: false,
 		disablePadding: false,
-		label: 'Kode',
+		label: 'Periode',
 	},
 	{
-		id: 'jam_kerja',
+		id: 'jenis',
 		numeric: false,
 		disablePadding: false,
-		label: 'Jam Kerja',
-	},
-	{
-		id: 'mapel',
-		numeric: false,
-		disablePadding: false,
-		label: 'Mata Pelajaran',
-	},
-	{
-		id: 'tugas_tambahan',
-		numeric: false,
-		disablePadding: false,
-		label: 'Tugas Tambahan',
-	},
-	{
-		id: 'status',
-		numeric: false,
-		disablePadding: false,
-		label: 'Status',
+		label: 'Jenis Jam',
 	},
 	{
 		id: 'options',
@@ -74,17 +55,17 @@ const getHeadCells = [
 	},
 ];
 
-function GuruPage() {
+function AturJadwalPage() {
 	return (
 		<>
-			<PageHeader title="Guru">
+			<PageHeader title="Jadwal Kelas">
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
 						textTransform: 'uppercase',
 					}}
 				>
-					<Typography color="text.tertiary">Guru</Typography>
+					<Typography color="text.tertiary">Jadwal</Typography>
 					<Link underline="hover" href="/">
 						Home
 					</Link>
@@ -92,7 +73,7 @@ function GuruPage() {
 			</PageHeader>
 
 			<Stack spacing={5}>
-				<DataTableSection name="Guru" props={{ dense: true }} />
+				<DataTableSection name="Jadwal Kelas" props={{ dense: true }} />
 			</Stack>
 		</>
 	);
@@ -104,7 +85,7 @@ function DataTableSection({ name, props }) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const deletePost = async (id) => {
-		await api.delete(`/guru/delete/${id}`).then(() => {});
+		await api.delete(`/jadwal/delete/${id}`).then(() => {});
 		setDataList((prev) => prev.filter((item) => item.id !== id)); // Hapus dari state
 	};
 
@@ -132,7 +113,7 @@ function DataTableSection({ name, props }) {
 
 	const fetchDataList = async () => {
 		try {
-			const response = await api.get('/guru/get'); // Ganti dengan endpoint yang sesuai
+			const response = await api.get('/jadwal/get'); // Ganti dengan endpoint yang sesuai
 			setDataList(response.data);
 		} catch (err) {
 			setError(err.message);
@@ -155,7 +136,7 @@ function DataTableSection({ name, props }) {
 	return (
 		<Card component="section" type="section">
 			<CardHeader title={`List Data ${name} `} subtitle="">
-				<Button variant="contained" disableElevation endIcon={<AddIcon />} onClick={() => navigate('new')}>
+				<Button variant="contained" disableElevation endIcon={<AddIcon />} onClick={() => navigate('../jadwal/add/time')}>
 					New entry
 				</Button>
 			</CardHeader>
@@ -167,32 +148,17 @@ function DataTableSection({ name, props }) {
 				render={(row) => (
 					<TableRow hover tabIndex={-1} key={row.id}>
 						<TableCell size="small">{row.DT_RowIndex}</TableCell>
-						<TableCell>{row.nama_guru}</TableCell>
-						<TableCell>{row.kode}</TableCell>
-						<TableCell>{row.jam_kerja}</TableCell>
-						<TableCell>{row.mapel}</TableCell>
-						<TableCell>{row.tugas_tambahan}</TableCell>
-						<TableCell>{row.status}</TableCell>
-						<TableCell align="right" sx={{ width: 150 }}>
-							<Tooltip title="Atur Mapel" arrow>
-								<IconButton
-									aria-label="setup"
-									color="success"
-									size="small"
-									sx={{ fontSize: 2 }}
-									onClick={() => navigate(`../guru/mapel/${row.id}`)}
-								>
-									<MenuBookOutlinedIcon fontSize="medium" />
-								</IconButton>
-							</Tooltip>
-
+						<TableCell align="left">{row.hari}</TableCell>
+						<TableCell align="left">{row?.periode}</TableCell>
+						<TableCell align="left">{row?.jenis}</TableCell>
+						<TableCell align="right">
 							<Tooltip title="Edit Data" arrow>
 								<IconButton
 									aria-label="edit"
 									color="warning"
 									size="small"
 									sx={{ fontSize: 2 }}
-									onClick={() => navigate(`../guru/edit/${row.id}`)}
+									onClick={() => navigate(`../jadwal/edit/${row.id}`)}
 								>
 									<ModeEditOutlineOutlinedIcon fontSize="medium" />
 								</IconButton>
@@ -217,4 +183,4 @@ function DataTableSection({ name, props }) {
 	);
 }
 
-export default GuruPage;
+export default AturJadwalPage;
