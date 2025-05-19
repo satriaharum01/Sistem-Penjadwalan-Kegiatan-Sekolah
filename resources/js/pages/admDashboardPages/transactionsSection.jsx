@@ -15,15 +15,19 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
-import customersData from '@/_mocks/customers';
+import LoadingComponent from '@/components/loader/customLoader';
+//REACT
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+//Utils
+import api from '../../api';
 
 function TransactionsSection() {
 	return (
 		<Card type="none">
 			<Stack direction="column" alignItems="flex-start">
 				<Typography variant="h5" textTransform="uppercase" m={2}>
-					User Transaction History
+					Data Jam Kerja Guru
 				</Typography>
 				<TransactionsTable />
 				<Button
@@ -33,70 +37,12 @@ function TransactionsSection() {
 						m: 1,
 					}}
 				>
-					View All Transaction History
+					View All
 				</Button>
 			</Stack>
 		</Card>
 	);
 }
-
-const TRANSACTIONS_DATA = [
-	{
-		id: uuid(),
-		userId: 1,
-		user: customersData.find((customer) => customer?.id === 1),
-		transId: '1234567890',
-		type: {
-			title: 'Email verified',
-			status: 'success',
-		},
-		date: 'Just Now',
-	},
-	{
-		id: uuid(),
-		userId: 1,
-		user: customersData.find((customer) => customer?.id === 2),
-		transId: '4234592890',
-		type: {
-			title: 'Pending verification',
-			status: 'warning',
-		},
-		date: 'Apr 21, 2017 8:34am',
-	},
-	{
-		id: uuid(),
-		userId: 1,
-		user: customersData.find((customer) => customer?.id === 3),
-		transId: '7245567890',
-		type: {
-			title: 'Purchased success',
-			status: 'success',
-		},
-		date: 'Apr 10, 2017 4:40pm',
-	},
-	{
-		id: uuid(),
-		userId: 1,
-		user: customersData.find((customer) => customer?.id === 4),
-		transId: '8234568790',
-		type: {
-			title: 'Payment on hold',
-			status: 'error',
-		},
-		date: 'Apr 02, 2017 6:45pm',
-	},
-	{
-		id: uuid(),
-		userId: 1,
-		user: customersData.find((customer) => customer?.id === 5),
-		transId: '7234524890',
-		type: {
-			title: 'Account desactivated',
-			status: '',
-		},
-		date: 'Mar 30, 2017 10:30am',
-	},
-];
 
 const STATUS_CONFIG = {
 	success: {
@@ -111,35 +57,53 @@ const STATUS_CONFIG = {
 };
 
 function TransactionsTable() {
+	const [dataList, setDataList] = useState([]);
+	const [loadingGraph, setLoadingGraph] = useState(true);
+	const [error, setError] = useState(null);
+
+	const fetchData = async () => {
+		await api.get('dashboard/get/distributed-worktime').then((res) => {
+			setDataList(res.data);
+			setLoadingGraph(false);
+			console.log(dataList);
+		});
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
 	return (
 		<TableContainer>
 			<Table aria-label="products purchases table" size="medium">
 				<TableHead>
 					<TableRow>
 						<TableCell> </TableCell>
-						<TableCell align="left">User</TableCell>
-						<TableCell align="left">Type</TableCell>
-						<TableCell align="left">Date</TableCell>
+						<TableCell align="left">Guru</TableCell>
+						<TableCell align="left">Status</TableCell>
+						<TableCell align="left">Rasio</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{TRANSACTIONS_DATA.map((transaction) => (
-						<TransactionRow key={transaction.id} transaction={transaction} />
-					))}
+					{loadingGraph ? (
+						<LoadingComponent />
+					) : (
+						dataList.map((data) => <TransactionRow key={data.id} data={data} />)
+					)}
 				</TableBody>
 			</Table>
 		</TableContainer>
 	);
 }
 
-function TransactionRow({ transaction }) {
-	const { user, transId, type, date } = transaction;
+function TransactionRow({ data }) {
+	const { avatarImg, guru_kode, kesimpulan, guru_nama, jam_kerja, kerja } = data;
 	return (
 		<TableRow hover>
 			<TableCell>
 				<Avatar
 					alt="User Img"
-					src={user?.avatarImg}
+					src={avatarImg}
 					sx={{
 						width: 40,
 						height: 40,
@@ -159,9 +123,9 @@ function TransactionRow({ transaction }) {
 						},
 					}}
 				>
-					{user?.name}
+					{guru_nama}
 				</Link>
-				<Typography variant="caption">TRANSID: {transId}</Typography>
+				<Typography variant="caption">Kode: {guru_kode}</Typography>
 			</TableCell>
 			<TableCell align="left">
 				<Stack direction="row" alignItems="center" spacing={1}>
@@ -169,17 +133,20 @@ function TransactionRow({ transaction }) {
 						component="span"
 						width={8}
 						height={8}
-						bgcolor={STATUS_CONFIG[type?.status]?.color || '#d3d3d3'}
+						bgcolor={STATUS_CONFIG[kesimpulan?.status]?.color || '#d3d3d3'}
 						borderRadius="50%"
 					/>
 					<Typography variant="caption" color="text.tertiary">
-						{type?.title}
+						{kesimpulan?.title}
 					</Typography>
 				</Stack>
 			</TableCell>
 			<TableCell align="left" size="small">
 				<Typography variant="body1" color="text.tertiary">
-					{date}
+					{kerja}
+					{'/'}
+					{jam_kerja}
+					{' Jam'}
 				</Typography>
 			</TableCell>
 		</TableRow>

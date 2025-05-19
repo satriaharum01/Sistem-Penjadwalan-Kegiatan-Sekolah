@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import AddIcon from '@mui/icons-material/Add';
+import SyncIcon from '@mui/icons-material/Sync';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import EventBusyIcon from '@mui/icons-material/EventBusy';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -23,6 +23,7 @@ import DataTable from '@/components/dataTable';
 import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const getHeadCells = [
 	{
@@ -102,6 +103,64 @@ function DataTableSection({ name, props }) {
 		fetchDataList();
 	}, []);
 
+	const generateJadwal = async () => {
+		let logText = 'Open server request...';
+		try {
+			const eventSource = new EventSource('../../api/stream-jadwal-log');
+
+			Swal.fire({
+				title: 'Membuat Jadwal...',
+				html: '<pre id="swal-log" style="text-align: left; font-size:10pt;text-wrap-mode: wrap;"></pre>',
+				allowOutsideClick: false,
+				didOpen: () => {
+					Swal.showLoading();
+
+					const logContainer = Swal.getHtmlContainer().querySelector('#swal-log');
+
+					eventSource.onmessage = (event) => {
+						logText = event.data + '\n';
+						logContainer.textContent = logText;
+					};
+
+					eventSource.onerror = (error) => {
+						logContainer.textContent += '\n❌ Terjadi kesalahan.';
+						eventSource.close();
+						Swal.hideLoading();
+					};
+
+					eventSource.addEventListener('done', () => {
+						logContainer.textContent += '\n✅ Jadwal selesai dibuat.';
+						eventSource.close();
+						Swal.hideLoading();
+
+						navigate('/admin/jadwal');
+					});
+				},
+			});
+			// Ganti dengan endpoint yang sesuai
+		} catch (err) {
+			setError(err.message);
+		} finally {
+		}
+	};
+
+	const handleJadwal = (id) => {
+		Swal.fire({
+			title: 'Buat Jadwal ?',
+			text: 'Membuat jadwal akan menghapus jadwal yang sebelumnya !',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes',
+			cancelButtonText: 'Tidak',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				generateJadwal();
+			}
+		});
+	};
+
 	{
 		loading && <Typography>Loading...</Typography>;
 	}
@@ -111,7 +170,17 @@ function DataTableSection({ name, props }) {
 
 	return (
 		<Card component="section" type="section">
-			<CardHeader title={`List Data ${name} `} subtitle=""></CardHeader>
+			<CardHeader title={`List Data ${name} `} subtitle="">
+				<Button
+					variant="contained"
+					color="success"
+					disableElevation
+					endIcon={<SyncIcon />}
+					onClick={() => handleJadwal()}
+				>
+					Generate Jadwal
+				</Button>
+			</CardHeader>
 			<DataTable
 				{...props}
 				headCells={getHeadCells}
@@ -130,13 +199,18 @@ function DataTableSection({ name, props }) {
 										aria-label="roster"
 										color="success"
 										size="small"
-										sx={{ fontSize: 2}}
+										sx={{ fontSize: 2 }}
 										onClick={() => navigate(`../jadwal/kelas/${row.id}`)}
 									>
 										<EditCalendarIcon fontSize="medium" />
 									</IconButton>
 								) : (
-									<IconButton aria-label="roster" color="error" size="small" sx={{ fontSize: 2, cursor: 'not-allowed' }}>
+									<IconButton
+										aria-label="roster"
+										color="error"
+										size="small"
+										sx={{ fontSize: 2, cursor: 'not-allowed' }}
+									>
 										<EventBusyIcon fontSize="medium" />
 									</IconButton>
 								)}

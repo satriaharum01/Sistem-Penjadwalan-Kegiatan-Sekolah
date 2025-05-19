@@ -9,26 +9,36 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-
+import AutoCounter from '@/components/utils/AutoCounter';
+//ICON
+import SyncIcon from '@mui/icons-material/Sync';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+//REACT
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 //Utils
 import api from '../../api';
 
 function GraphsSection() {
 	const [jam, setJam] = useState(0);
-	const [jamGuru, setJamGuru] = useState(0);
 	const [series, setSeries] = useState([]);
-	const [categories, setCategories] = useState(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']); // default kategori
-  
+	const [jamBerat, setJamBerat] = useState(null);
+	const [jamRingan, setJamRingan] = useState(null);
+
 	useEffect(() => {
-	  api.get('dashboard/get/jam-tingkatan')
-		.then((res) => {
-		  const data = res.data;
-		  setSeries(data.series); // array of { name, data }
-		  if (data.categories) {
-			setCategories(data.categories);
-		  }
+		api.get('dashboard/get/jam-tingkatan').then((res) => {
+			const data = res.data;
+			setSeries(data.series); // array of { name, data }
+			if (data.categories) {
+				setCategories(data.categories);
+			}
+		});
+		api.get('dashboard/get/jam-tingkatan-counter').then((res) => {
+			setJam(res.data); // array of { data }
+		});
+		api.get('dashboard/get/jam-mapel-counter').then((res) => {
+			setJamBerat(res.data.berat); // array of { data }
+			setJamRingan(res.data.ringan); // array of { data }
 		});
 	}, []);
 
@@ -36,18 +46,18 @@ function GraphsSection() {
 		<section>
 			<Grid container spacing={3}>
 				<Grid item xs={12} sm={12} md={6}>
-					<JamPelajaranSection jam={jam} series={series}/>
+					<JamPelajaranSection jam={jam} series={series} />
 				</Grid>
 				<Grid item xs={12} sm={12} md={6}>
 					<Grid container spacing={3}>
 						<Grid item xs={12} sm={12} md={12}>
-							<JamGuruSection jam={jamGuru}/>
+							<JamGuruSection />
 						</Grid>
 						<Grid item xs={12} sm={6} md={6}>
-							<MaleVisitorsSection />
+							<JamBeratSection jam={jamBerat}/>
 						</Grid>
 						<Grid item xs={12} sm={6} md={6}>
-							<FemaleVisitorsSection />
+							<JamRinganSection jam={jamRingan}/>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -94,24 +104,28 @@ const bitcoinGraphConfig = {
 			show: false,
 		},
 		xaxis: {
+			categories: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
 			show: false,
 		},
 		tooltip: {
 			enabled: true,
 		},
 		yaxis: {
-			max: 50,
+			max: 70,
 			show: false,
 		},
-	}
+	},
 };
 
-function JamPelajaranSection({jam, series}) {
-	const counter = useAutoCounter({
-		limiter: jam,
-		increment: 1,
-		interval: 10,
-	});
+function JamPelajaranSection({ jam, series }) {
+	const [loadingGraph, setLoadingGraph] = useState(true);
+
+	useEffect(() => {
+		if (jam > 0) {
+			setLoadingGraph(false);
+		}
+	}, [jam]);
+
 	return (
 		<SectionContainer
 			background={
@@ -144,7 +158,21 @@ function JamPelajaranSection({jam, series}) {
 				}}
 			>
 				<Typography variant="subtitle1" fontSize={55}>
-					{Math.round(counter * 10000) / 10000}{' '}
+					{loadingGraph ? (
+						<SyncIcon
+							sx={{
+								'@keyframes width-increase': {
+									'100%': {
+										WebkitTransform: 'rotate(360deg)',
+										transform: 'rotate(360deg)',
+									},
+								},
+								animation: 'width-increase 3s ease infinite',
+							}}
+						/>
+					) : (
+						<AutoCounter limiter={jam} increment={1} interval={10} />
+					)}{' '}
 					<Typography variant="subtitle1" component="span">
 						Jam
 					</Typography>
@@ -201,12 +229,28 @@ const ethereumGraphConfig = {
 		},
 	],
 };
-function JamGuruSection({jam}) {
-	const counter = useAutoCounter({
-		limiter: jam,
-		increment: 1,
-		interval: 10,
-	});
+function JamGuruSection({ jam }) {
+	const navigate = useNavigate();
+	const [jamGuru, setJamGuru] = useState(0);
+	const [loadingGraph, setLoadingGraph] = useState(true);
+	const [error, setError] = useState(null);
+
+	const fetchJamGuru = async () => {
+		const res = await api.get('dashboard/get/jam-guru-counter');
+		setJamGuru(res.data); // Pastikan ini nilainya benar
+	};
+
+	useEffect(() => {
+		fetchJamGuru();
+	}, []);
+
+	// Aktifkan counter setelah jamGuru tersedia (bukan 0/null)
+	useEffect(() => {
+		if (jamGuru > 0) {
+			setLoadingGraph(false);
+		}
+	}, [jamGuru]);
+
 	return (
 		<SectionContainer
 			background={
@@ -227,14 +271,28 @@ function JamGuruSection({jam}) {
 		>
 			<Stack ml="auto" width="50%" spacing={0}>
 				<Typography variant="subtitle1" fontSize={35}>
-					{Math.round(counter * 10000) / 10000}{' '}
+					{loadingGraph ? (
+						<SyncIcon
+							sx={{
+								'@keyframes width-increase': {
+									'100%': {
+										WebkitTransform: 'rotate(360deg)',
+										transform: 'rotate(360deg)',
+									},
+								},
+								animation: 'width-increase 3s ease infinite',
+							}}
+						/>
+					) : (
+						<AutoCounter limiter={jamGuru} increment={1} interval={10} />
+					)}{' '}
 					<Typography variant="subtitle1" component="span">
-						ETH
+						Jam
 					</Typography>
 				</Typography>
-				<Typography variant="subtitle1">ETHEREUM WALLET</Typography>
+				<Typography variant="subtitle1">JAM MENGAJAR GURU TERSEDIA</Typography>
 				<Typography variant="subtitle2">
-					Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus...
+					Jam mengajar guru yang tersedia untuk melihat proses penjadwalan...
 				</Typography>
 				<Button
 					variant="text"
@@ -244,8 +302,9 @@ function JamGuruSection({jam}) {
 						width: 'fit-content',
 						textTransform: 'uppercase',
 					}}
+					onClick={() => navigate(`../admin/guru/jam`)}
 				>
-					View Report
+					Lihat Data
 				</Button>
 			</Stack>
 		</SectionContainer>
@@ -292,12 +351,7 @@ const maleVisitorsGraphConfig = {
 	],
 };
 
-function MaleVisitorsSection() {
-	const counter = useAutoCounter({
-		limiter: 29931,
-		increment: 1000,
-		interval: 10,
-	});
+function JamBeratSection({jam}) {
 	return (
 		<SectionContainer
 			background={
@@ -318,11 +372,25 @@ function MaleVisitorsSection() {
 		>
 			<Stack spacing={0} direction="column" width="100%" justifyContent="center" alignItems="center">
 				<Typography variant="subtitle1" fontSize={35}>
-					{counter.toLocaleString()}
+					{!jam ? (
+						<SyncIcon
+							sx={{
+								'@keyframes width-increase': {
+									'100%': {
+										WebkitTransform: 'rotate(360deg)',
+										transform: 'rotate(360deg)',
+									},
+								},
+								animation: 'width-increase 3s ease infinite',
+							}}
+						/>
+					) : (
+						<AutoCounter limiter={jam} increment={1} interval={10} />
+					)}
 				</Typography>
-				<Typography variant="subtitle1">MALE VISITORS</Typography>
+				<Typography variant="subtitle1">JAM BERAT</Typography>
 				<Typography variant="subtitle2" color="text.secondary" pb={2}>
-					Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus...
+					Jam mata pelajaran diatas 4 jam seminggu...
 				</Typography>
 			</Stack>
 		</SectionContainer>
@@ -368,12 +436,7 @@ const femaleVisitorsGraphConfig = {
 	],
 };
 
-function FemaleVisitorsSection() {
-	const counter = useAutoCounter({
-		limiter: 45231,
-		increment: 1000,
-		interval: 10,
-	});
+function JamRinganSection({ jam }) {
 	return (
 		<SectionContainer
 			background={
@@ -394,11 +457,25 @@ function FemaleVisitorsSection() {
 		>
 			<Stack spacing={0} direction="column" width="100%" justifyContent="center" alignItems="center">
 				<Typography variant="subtitle1" fontSize={35}>
-					{counter.toLocaleString()}
+					{!jam ? (
+						<SyncIcon
+							sx={{
+								'@keyframes width-increase': {
+									'100%': {
+										WebkitTransform: 'rotate(360deg)',
+										transform: 'rotate(360deg)',
+									},
+								},
+								animation: 'width-increase 3s ease infinite',
+							}}
+						/>
+					) : (
+						<AutoCounter limiter={jam} increment={1} interval={10} />
+					)}
 				</Typography>
-				<Typography variant="subtitle1">FEMALE VISITORS</Typography>
+				<Typography variant="subtitle1">JAM RINGAN</Typography>
 				<Typography variant="subtitle2" color="text.secondary" pb={2}>
-					Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus...
+					Jam mata pelajaran dibawah 4 jam seminggu...
 				</Typography>
 			</Stack>
 		</SectionContainer>

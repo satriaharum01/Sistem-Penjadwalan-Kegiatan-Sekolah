@@ -59,11 +59,17 @@ class KelasMapel extends Model
     public function gurus()
     {
         return $this->belongsToMany(Guru::class, 'kelas_mapel_guru')
-                ->withPivot('guru_id'); 
+                ->withPivot('guru_id');
     }
-    
+
     public function kelasMapelGuru()
     {
         return $this->hasMany(KelasMapelGuru::class);
+    }
+
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class, 'mapel_id', 'mapel_id')
+            ->whereColumn('jadwal.kelas_id', 'kelas_mapel.kelas_id');
     }
 }

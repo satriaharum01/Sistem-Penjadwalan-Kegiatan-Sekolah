@@ -19,7 +19,7 @@ import bitcoin2 from '@/assets/images/bitcoin_2.svg';
 const BITCOIN_CARD_DESCRIPTION =
 	'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia. Even the all-powerful Pointing has no control about the blind texts.';
 
-function BitcoinSection() {
+function ConstraintsSection() {
 	return (
 		<section>
 			<Grid container spacing={3}>
@@ -248,4 +248,4 @@ function ImpressionsCard() {
 	);
 }
 
-export default BitcoinSection;
+export default ConstraintsSection;

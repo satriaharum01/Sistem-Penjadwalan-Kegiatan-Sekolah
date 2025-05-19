@@ -316,7 +316,7 @@ class JadwalCspService
 
                             $slot = $slots[$i];
                             if (in_array($slot->id, $slotUsed)) {
-                                $this->log[] = "      ❌ Jadwal $hari {$slot->mulai} dilewati karena sudah terisi";
+                                //$this->log[] = "      ❌ Jadwal $hari {$slot->mulai} dilewati karena sudah terisi";
                                 continue;
                             }
 

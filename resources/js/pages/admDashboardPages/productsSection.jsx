@@ -13,20 +13,25 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-
-import productsData from '@/_mocks/products';
+import LoadingComponent from '@/components/loader/customLoader';
+//REACT
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+//Utils
+import api from '../../api';
 
 function ProductsSection() {
 	return (
 		<Card type="none">
 			<Stack direction="column" alignItems="flex-start">
 				<Typography variant="h5" textTransform="uppercase" m={2}>
-					Products Purchases
+					Distribusi Mata Pelajaran
 				</Typography>
 				<ProductsTable />
 				<Button
@@ -36,65 +41,12 @@ function ProductsSection() {
 						m: 1,
 					}}
 				>
-					View All Products
+					View All
 				</Button>
 			</Stack>
 		</Card>
 	);
 }
-
-const PURCHASES_DATA = [
-	{
-		id: uuid(),
-		product: productsData.find((product) => product?.id === 1),
-		sold: '3,345',
-		stock: {
-			title: '20 remaining',
-			status: 'error',
-		},
-		gain: 33.34,
-	},
-	{
-		id: uuid(),
-		product: productsData.find((product) => product?.id === 2),
-		sold: '720',
-		stock: {
-			title: 'In stock',
-			status: 'success',
-		},
-		gain: -21.2,
-	},
-	{
-		id: uuid(),
-		product: productsData.find((product) => product?.id === 3),
-		sold: '1,445',
-		stock: {
-			title: 'In stock',
-			status: 'success',
-		},
-		gain: 23.34,
-	},
-	{
-		id: uuid(),
-		product: productsData.find((product) => product?.id === 4),
-		sold: '2,500',
-		stock: {
-			title: '45 remaining',
-			status: 'warning',
-		},
-		gain: 28.78,
-	},
-	{
-		id: uuid(),
-		product: productsData.find((product) => product?.id === 5),
-		sold: '223',
-		stock: {
-			title: 'Paused',
-			status: '',
-		},
-		gain: -18.18,
-	},
-];
 
 const STATUS_CONFIG = {
 	success: {
@@ -109,37 +61,52 @@ const STATUS_CONFIG = {
 };
 
 function ProductsTable() {
+	const [dataList, setDataList] = useState([]);
+	const [loadingGraph, setLoadingGraph] = useState(true);
+	const [error, setError] = useState(null);
+
+	const fetchData = async () => {
+		await api.get('dashboard/get/distributed-mapel').then((res) => {
+			setDataList(res.data);
+			setLoadingGraph(false);
+			console.log(dataList);
+		});
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
 	return (
 		<TableContainer>
 			<Table aria-label="products purchases table" size="medium">
 				<TableHead>
 					<TableRow>
-						<TableCell> </TableCell>
+						<TableCell></TableCell>
 						<TableCell align="left" padding="none">
-							Item Details
+							Mata Pelajaran
 						</TableCell>
-						<TableCell align="right">Sold</TableCell>
-						<TableCell align="left">Gain</TableCell>
-						<TableCell align="right">Actions</TableCell>
+						<TableCell align="right">Rasio</TableCell>
+						<TableCell align="center">Kode</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{PURCHASES_DATA.map((purchase) => (
-						<ProductsTableRow key={purchase.id} purchase={purchase} />
-					))}
+					{loadingGraph ? (
+						<LoadingComponent />
+					) : (
+						dataList.slice(0, 5).map((data) => <ProductsTableRow key={data.id} data={data} />)
+					)}
 				</TableBody>
 			</Table>
 		</TableContainer>
 	);
 }
 
-function ProductsTableRow({ purchase }) {
-	const { product, sold, stock, gain } = purchase;
+function ProductsTableRow({ data }) {
+	const { mapel_nama, mapel_kode, kesimpulan, terisi, total_jam } = data;
 	return (
 		<TableRow hover>
-			<TableCell>
-				<img alt="User Img" src={product?.productImg} height={40} />
-			</TableCell>
+			<TableCell align="center"><AutoStoriesIcon  sx={{height: 40, color: STATUS_CONFIG[kesimpulan?.status]?.color || '#d3d3d3'}}/></TableCell>
 			<TableCell align="left" padding="none">
 				<Link
 					href="#!"
@@ -153,49 +120,33 @@ function ProductsTableRow({ purchase }) {
 						},
 					}}
 				>
-					{product?.name}
+					{mapel_nama}
 				</Link>
 				<Stack direction="row" alignItems="center" spacing={1}>
 					<Box
 						component="span"
 						width={8}
 						height={8}
-						bgcolor={STATUS_CONFIG[stock?.status]?.color || '#d3d3d3'}
+						bgcolor={STATUS_CONFIG[kesimpulan?.status]?.color || '#d3d3d3'}
 						borderRadius="50%"
 					/>
 					<Typography variant="caption" color="text.tertiary">
-						{stock?.title}
+						{kesimpulan?.title}
 					</Typography>
 				</Stack>
 			</TableCell>
 			<TableCell align="right">
 				<Typography variant="body1" color="text.tertiary">
-					{sold}
-				</Typography>
-			</TableCell>
-			<TableCell align="left">
-				<Typography variant="body1" color="text.tertiary">
-					<Typography
-						component="span"
-						variant="inherit"
-						color={`${Math.sign(gain) === 1 ? 'success.dark' : 'error.main'}`}
-					>
-						{Math.sign(gain) === 1 ? (
-							<ArrowUpwardIcon fontSize="inherit" />
-						) : (
-							<ArrowDownwardIcon fontSize="inherit" />
-						)}
-						&nbsp;
-						{gain}
-						%&nbsp;
-					</Typography>
-					from last week
+					{terisi}
+					{'/'}
+					{total_jam}
+					{' Jam'}
 				</Typography>
 			</TableCell>
 			<TableCell align="center">
-				<IconButton size="small">
-					<MoreHorizIcon fontSize="small" />
-				</IconButton>
+				<Typography variant="h5" color="text.tertiary">
+					{mapel_kode}
+				</Typography>
 			</TableCell>
 		</TableRow>
 	);

@@ -122,6 +122,11 @@ class JadwalController extends Controller
                 flush();
                 usleep(200000); // 0.2 detik per log
             }
+            sleep(1);
+            echo "event: done\n";
+            echo "data: Proses penjadwalan selesai\n\n";
+            ob_flush();
+            flush();
         }, 200, [
             'Content-Type' => 'text/event-stream',
             'Cache-Control' => 'no-cache',

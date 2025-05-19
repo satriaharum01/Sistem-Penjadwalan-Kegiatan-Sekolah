@@ -11,7 +11,7 @@ class Guru extends Model
     use HasFactory;
     protected $table = 'guru';
     protected $primaryKey = 'id';
-    protected $fillable = ['nama_guru','kode','jam_kerja','jabatan','tugas_tambahan','status'];
+    protected $fillable = ['nama_guru','kode','jam_kerja','jabatan','tugas_tambahan','status','user_id'];
     protected $inputType = [
         'nama_guru' => 'text',
         'kode' => 'text',
@@ -40,5 +40,21 @@ class Guru extends Model
     public function guruMapels()
     {
         return $this->hasMany(GuruMapel::class);
+    }
+
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class, 'guru_id', 'id')
+            ->whereColumn('jadwal.guru_id','guru.id');
+    }
+    
+    public function findUser()
+    {
+        return $this->belongsTo(User::class, 'user_id')->withDefault(function ($data) {
+            if (collect($data->getFillable())->every(fn ($attr) => $data->$attr === null)) {
+                return null;
+            }
+            return $data;
+        });
     }
 }

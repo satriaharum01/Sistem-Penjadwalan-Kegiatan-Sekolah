@@ -62,7 +62,7 @@ function jadwalKelas() {
 
 	return (
 		<>
-			<PageHeader title={`Roster Kelas ${kelas}`} >
+			<PageHeader title={`Roster Kelas ${kelas}`}>
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
@@ -137,7 +137,8 @@ function DataTableSection({ name, props }) {
 
 	return (
 		<Card component="section" type="section">
-			<CardHeader title={`List Data ${name} `} subtitle=""></CardHeader>
+			<CardHeader title={`List Data ${name} `} subtitle="">
+			</CardHeader>
 
 			<TableContainer>
 				<Table size="small" aria-label="custom table">

@@ -34,11 +34,18 @@ Route::prefix('get')->name('get.')->group(function () {
 Route::get('/generate-jadwal', [App\Http\Controllers\JadwalController::class, 'generate']);
 Route::get('/generate-csp', [App\Http\Controllers\JadwalController::class, 'generateCSP']);
 Route::get('/group-jadwal', [App\Http\Controllers\JadwalController::class, 'groupSchedule']);
-Route::get('/generate-jjj', [App\Http\Controllers\JadwalController::class, 'generateJadwal1']);
+Route::get('/generate-csp-jadwal', [App\Http\Controllers\JadwalController::class, 'generateJadwal1']);
+Route::get('/stream-jadwal-log', [App\Http\Controllers\JadwalController::class, 'streamLog']);
 
 //Admin Route
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::GET('/get/jam-tingkatan', [App\Http\Controllers\AdminDashboardController::class, 'getJamTingkatan']);
+    Route::GET('/get/jam-tingkatan-counter', [App\Http\Controllers\AdminDashboardController::class, 'countJamPelajaran']);
+    Route::GET('/get/jam-guru-counter', [App\Http\Controllers\AdminDashboardController::class, 'getJamGuru']);
+    Route::GET('/get/jam-mapel-counter', [App\Http\Controllers\AdminDashboardController::class, 'hitungJam']);
+    Route::GET('/get/jam-stats-counter', [App\Http\Controllers\AdminDashboardController::class, 'getStatsCounter']);
+    Route::GET('/get/distributed-mapel', [App\Http\Controllers\AdminDashboardController::class, 'getDistribusiMapel']);
+    Route::GET('/get/distributed-worktime', [App\Http\Controllers\AdminDashboardController::class, 'getDistribusiWorktime']);
 });
 Route::prefix('mapel')->name('mapel.')->group(function () {
     Route::GET('/get', [App\Http\Controllers\AdminMapelController::class, 'json']);
