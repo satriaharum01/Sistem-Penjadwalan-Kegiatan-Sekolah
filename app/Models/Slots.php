@@ -32,4 +32,8 @@ class Slots extends Model
         return $this->inputType;
     }
 
+    public function jadwal()
+    {
+        return $this->hasMany(Jadwal::class, 'slot_id');
+    }
 }

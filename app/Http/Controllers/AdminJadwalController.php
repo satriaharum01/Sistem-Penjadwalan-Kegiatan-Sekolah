@@ -70,45 +70,69 @@ class AdminJadwalController extends Controller
     public function groupScheduleClassFind($id)
     {
         // Ambil semua data jadwal
-        $jadwals = Jadwal::select('jadwal.*')
-        ->where('kelas_id', $id)
-        ->join('slots', 'slots.id', '=', 'jadwal.slot_id') // join slot biar bisa akses kolom 'hari'
-        ->with(['slot', 'kelas', 'mapel', 'guru'])
+        //$jadwals = Jadwal::select('jadwal.*')
+        //    ->where('kelas_id', $id)
+        //    ->join('slots', 'slots.id', '=', 'jadwal.slot_id') // join slot biar bisa akses kolom 'hari'
+        //    ->with(['slot', 'kelas', 'mapel', 'guru'])
+        //    ->orderByRaw("FIELD(slots.hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu')")
+        //    ->orderBy('slots.mulai') // urut juga berdasarkan jam mulai kalau perlu
+        //    ->get();
+        $jadwals = Jadwal::with(['mapel', 'guru', 'kelas']) // relasi di jadwal
+        ->rightJoin('slots', function ($join) use ($id) {
+            $join->on('jadwal.slot_id', '=', 'slots.id')
+                 ->where('jadwal.kelas_id', $id);
+        })
         ->orderByRaw("FIELD(slots.hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu')")
-        ->orderBy('slots.mulai') // urut juga berdasarkan jam mulai kalau perlu
+        ->orderBy('slots.mulai')
         ->get();
 
+        foreach ($jadwals as $item) {
+            if ($item->mapel_id == null) {
+                $item->kelas_id = $id;
+            }
+        }
         // Kelompokkan data berdasarkan hari
         $groupedByDay = $jadwals->groupBy(function ($item) {
-            return $item->slot->hari; // Mengelompokkan berdasarkan hari
+            return $item->hari; // Mengelompokkan berdasarkan hari
         });
 
         // Kelompokkan lagi berdasarkan kelas_id dan urutkan berdasarkan mulai
-        $groupedByDayAndClass = $groupedByDay->map(function ($items) {
-            return $items->groupBy('kelas_id') // Mengelompokkan berdasarkan kelas_id
-                ->map(function ($kelasItems) {
-                    return $kelasItems->sortBy('slot.mulai'); // Urutkan berdasarkan mulai
-                });
-        });
+        //$groupedByDayAndClass = $groupedByDay->map(function ($items) {
+        //    return $items->groupBy('kelas_id') // Mengelompokkan berdasarkan kelas_id
+        //        ->map(function ($kelasItems) {
+        //            return $kelasItems->sortBy('slot.mulai'); // Urutkan berdasarkan mulai
+        //        });
+        //});
+
         // Siapkan data untuk ditampilkan dalam bentuk tabel
         $tableData = [];
+        foreach ($groupedByDay as $day => $items) {
 
-        foreach ($groupedByDayAndClass as $day => $classes) {
-            foreach ($classes as $kelasId => $items) {
-                foreach ($items as $item) {
+            foreach ($items as $item) {
+                if ($item->mapel_id == null) {
                     $tableData[] = [
-                        'Hari' => $item->slot->hari,
-                        'Mulai' => $item->slot->mulai,
-                        'Selesai' => $item->slot->selesai,
-                        'Kelas' => $item->kelas->nama_kelas,
-                        'Mapel' => $item->mapel->nama_mapel, // Sesuaikan dengan nama field di tabel Mapel
-                        'Guru' => $item->guru->nama_guru,   // Sesuaikan dengan nama field di tabel Guru
+                        'Hari' => $item->hari,
+                        'Mulai' => $item->mulai,
+                        'Selesai' => $item->selesai,
+                        'Kelas'  =>  '-' ,
+                        'Mapel'  =>  $item->jenis ,
+                        'Guru'   =>  $item->jenis,
+                    ];
+                } else {
+                    $tableData[] = [
+                        'Hari' => $item->hari,
+                        'Mulai' => $item->mulai,
+                        'Selesai' => $item->selesai,
+                        'Kelas'  =>  $item->kelas->nama_kelas ,
+                        'Mapel'  =>  $item->mapel->nama_mapel ,
+                        'Guru'   =>  $item->guru->nama_guru,
                     ];
                 }
             }
         }
+
         // Kembalikan data dalam bentuk tabel
-        return $this->groupByDay($groupedByDayAndClass);
+        return $this->groupByDay($groupedByDay);
         //return response()->json($groupedByDayAndClass);
     }
 

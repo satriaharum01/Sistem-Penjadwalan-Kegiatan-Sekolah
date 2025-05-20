@@ -123,6 +123,19 @@ function DataTableSection({ name, props }) {
 				</TableRow>
 			);
 		}
+		if (row.jenis !== 'Mata Pelajaran') {
+			return (
+				<TableRow key={`jenis-${i}`}>
+				<TableCell>{row.index}</TableCell>
+					<TableCell>
+						{row.mulai} - {row.selesai}
+					</TableCell>
+					<TableCell colSpan={3} sx={{ fontWeight: 'bold', backgroundColor: '#eee' }}>
+						{row.jenis}
+					</TableCell>
+				</TableRow>
+			);
+		}
 		return (
 			<TableRow hover key={`row-${i}`}>
 				<TableCell>{row.index}</TableCell>
@@ -137,8 +150,7 @@ function DataTableSection({ name, props }) {
 
 	return (
 		<Card component="section" type="section">
-			<CardHeader title={`List Data ${name} `} subtitle="">
-			</CardHeader>
+			<CardHeader title={`List Data ${name} `} subtitle=""></CardHeader>
 
 			<TableContainer>
 				<Table size="small" aria-label="custom table">

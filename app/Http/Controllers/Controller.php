@@ -69,22 +69,34 @@ class Controller extends BaseController
     {
         $tableData = [];
 
-        foreach ($groupedByDayAndClass as $day => $classes) {
+        foreach ($groupedByDayAndClass as $day => $items) {
             $tableData[] = ['isHari' => true, 'hari' => $day];
 
-            foreach ($classes as $kelasId => $items) {
-                $index = 1;
-                foreach ($items as $item) {
+            $index = 1;
+            foreach ($items as $item) {
+                if ($item->mapel_id == null) {
                     $tableData[] = [
-                        'index' => $index,
-                        'mulai' => $item->slot->mulai,
-                        'selesai' => $item->slot->selesai,
-                        'kelas' => $item->kelas->nama_kelas,
-                        'mapel' => $item->mapel->nama_mapel,
-                        'guru' => $item->guru->nama_guru,
+                        'hari' => $item->hari,
+                        'mulai' => $item->mulai,
+                        'selesai' => $item->selesai,
+                        'kelas'  => '-' ,
+                        'mapel'  =>  $item->jenis ,
+                        'jenis'  =>  $item->jenis ,
+                        'guru'   =>  $item->jenis,
                     ];
-                    $index++;
+                } else {
+
+                    $tableData[] = [
+                        'hari' => $item->hari,
+                        'mulai' => $item->mulai,
+                        'selesai' => $item->selesai,
+                        'jenis'  =>  $item->jenis ,
+                        'kelas'  =>  $item->kelas->nama_kelas ,
+                        'mapel'  =>  $item->mapel->nama_mapel ,
+                        'guru'   =>  $item->guru->nama_guru,
+                    ];
                 }
+                $index++;
             }
         }
 
