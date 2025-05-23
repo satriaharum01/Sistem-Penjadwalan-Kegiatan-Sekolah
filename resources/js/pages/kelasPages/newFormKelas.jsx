@@ -57,10 +57,8 @@ function FormSection({ variant, title }) {
 	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
-		hari: '',
-		mulai: '',
-		selesai: '',
-		jenis: '',
+		nama_kelas: '',
+		tingkat: 'null'
 	});
 
 	// Untuk edit: load data by ID
@@ -80,6 +78,8 @@ function FormSection({ variant, title }) {
 			...form,
 			[e.target.name]: e.target.value,
 		});
+
+		console.log(form);
 	};
 
 	const handleSubmit = async (e) => {
@@ -107,11 +107,11 @@ function FormSection({ variant, title }) {
 							value={form.tingkat}
 							onChange={handleChange}
 						>
-							<MenuItem value="">-- Pilih Tingkatan --</MenuItem>
+							<MenuItem value="null" key="null">-- Pilih Tingkatan --</MenuItem>
 							{tingkatanMenuItems.map((item) => (
-								<MenuItem key={item.value} value={item.value}>
-									{item.label}
-								</MenuItem>
+									<MenuItem key={item.value} value={item.value}>
+										{item.label}
+									</MenuItem>
 							))}
 						</TextField>
 					</Grid>

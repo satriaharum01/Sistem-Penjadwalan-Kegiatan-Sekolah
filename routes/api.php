@@ -46,7 +46,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::GET('/get/jam-stats-counter', [App\Http\Controllers\AdminDashboardController::class, 'getStatsCounter']);
     Route::GET('/get/distributed-mapel', [App\Http\Controllers\AdminDashboardController::class, 'getDistribusiMapel']);
     Route::GET('/get/distributed-worktime', [App\Http\Controllers\AdminDashboardController::class, 'getDistribusiWorktime']);
+    Route::GET('/get/distributed-mapel/all', [App\Http\Controllers\AdminDashboardController::class, 'getDistribusiMapelAll']);
+    Route::GET('/get/distributed-worktime/all', [App\Http\Controllers\AdminDashboardController::class, 'getDistribusiWorktimeAll']);
 });
+
 Route::prefix('mapel')->name('mapel.')->group(function () {
     Route::GET('/get', [App\Http\Controllers\AdminMapelController::class, 'json']);
     Route::POST('/store', [App\Http\Controllers\AdminMapelController::class, 'store']);

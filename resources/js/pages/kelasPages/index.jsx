@@ -21,6 +21,7 @@ import DataTable from '@/components/dataTable';
 import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const getHeadCells = [
 	{
@@ -84,6 +85,33 @@ function DataTableSection({ name, props }) {
 	const [dataList, setDataList] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const deletePost = async (id) => {
+		await api.delete(`/kelas/delete/${id}`).then(() => {});
+		setDataList((prev) => prev.filter((item) => item.id !== id)); // Hapus dari state
+	};
+
+
+	const handleDelete = (id) => {
+		Swal.fire({
+			title: 'Hapus Data ?',
+			text: 'Data yang dihapus tidak dapat dikembalikan !',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes',
+			cancelButtonText: 'Tidak',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				deletePost(id);
+				Swal.fire({
+					title: 'Hapus Berhasil!',
+					text: 'Data Berhasil dihapus !',
+					icon: 'success',
+				});
+			}
+		});
+	};
 
 	const fetchDataList = async () => {
 		try {
@@ -144,9 +172,7 @@ function DataTableSection({ name, props }) {
 									color="warning"
 									size="small"
 									sx={{ fontSize: 2 }}
-									onClick={(e) => {
-										e.stopPropagation();
-									}}
+									onClick={() => navigate(`../kelas/edit/${row.id}`)}
 								>
 									<ModeEditOutlineOutlinedIcon fontSize="medium" />
 								</IconButton>
@@ -158,9 +184,7 @@ function DataTableSection({ name, props }) {
 									color="error"
 									size="small"
 									sx={{ fontSize: 2 }}
-									onClick={(e) => {
-										e.stopPropagation();
-									}}
+									onClick={() => handleDelete(row.id)}
 								>
 									<DeleteOutlineIcon fontSize="medium" />
 								</IconButton>

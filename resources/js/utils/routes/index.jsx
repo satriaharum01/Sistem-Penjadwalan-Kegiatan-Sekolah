@@ -13,6 +13,8 @@ import { AuthProvider } from '../../context/AuthContext';
 import Page404 from '@/pages/errorPages/404';
 
 const DashboardPage = withLazyLoadably(lazy(() => import('@/pages/admDashboardPages')));
+const WorktimePage = withLazyLoadably(lazy(() => import('@/pages/admDashboardPages/section/distributedWorktime')));
+const DistributedMapelPage = withLazyLoadably(lazy(() => import('@/pages/admDashboardPages/section/distributedMapel')));
 const FormsComponentPage = withLazyLoadably(lazy(() => import('@/pages/componentsPages/forms')));
 const TablesComponentPage = withLazyLoadably(lazy(() => import('@/pages/componentsPages/tables')));
 const LoginSimplePage = withLazyLoadably(lazy(() => import('@/pages/loginPages/loginSimple')));
@@ -57,6 +59,8 @@ function Router() {
 
 							<Route path="admin/">
 								<Route path="dashboard" element={<DashboardPage />} />
+								<Route path="dashboard/worktime" element={<WorktimePage />} />
+								<Route path="dashboard/studytime" element={<DistributedMapelPage />} />
 							</Route>
 							<Route path="admin/">
 								{/* List Mapel */}

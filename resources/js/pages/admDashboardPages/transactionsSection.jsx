@@ -23,6 +23,7 @@ import { useState, useEffect } from 'react';
 import api from '../../api';
 
 function TransactionsSection() {
+	const navigate = useNavigate();
 	return (
 		<Card type="none">
 			<Stack direction="column" alignItems="flex-start">
@@ -36,6 +37,7 @@ function TransactionsSection() {
 					sx={{
 						m: 1,
 					}}
+					onClick={() => navigate(`worktime`)}
 				>
 					View All
 				</Button>
@@ -100,7 +102,7 @@ function TransactionRow({ data }) {
 	const { avatarImg, guru_kode, kesimpulan, guru_nama, jam_kerja, kerja } = data;
 	return (
 		<TableRow hover>
-			<TableCell>
+			<TableCell align="center">
 				<Avatar
 					alt="User Img"
 					src={avatarImg}

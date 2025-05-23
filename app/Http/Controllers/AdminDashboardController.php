@@ -111,65 +111,114 @@ class AdminDashboardController extends Controller
         return response()->json($data);
     }
 
-    public function getDistribusiWorktime()
+    public function getDistribusiWorktime($limit = 5)
     {
-        $guruJadwals = Guru::withCount(['jadwals'])->limit(5)->get();
-        $data = array();
-
-        foreach ($guruJadwals as $km) {
-            $sisaJam = $km->jam_kerja - $km->jadwals_count;
-
-            if ($sisaJam > 0) {
-                $keterangan = ['title' => 'Undertime','status' => 'success'];
-            } elseif ($sisaJam == 0) {
-                $keterangan = ['title' => 'On Time','status' => 'warning'];
-            } else {
-                
-                $keterangan = ['title' => 'Overtime','status' => 'error'];
-            }
-            $avatars = asset('assets/images/avatars/' . ($km->findUser?->faces ?? 'default.png'));
-            $data[] = [
-                'guru_id' => $km->id,
-                'guru_nama' => $km->nama_guru,
-                'guru_kode' => $km->kode,
-                'jam_kerja' => $km->jam_kerja,
-                'kerja' => $km->jadwals_count,
-                'avatarImg' => $avatars,
-                'kesimpulan' => $keterangan,
-                'sisa' => $sisaJam
-            ];
+        $query = Guru::withCount(['jadwals']);
+        if ($limit > 0) {
+            $query->limit($limit);
         }
 
-        return response()->json($data);
+        $guruJadwals = $query->get();
+        $totalKerja = 0;
+        $count = 0;
+
+        $data = $guruJadwals->map(function ($guru) use (&$totalKerja, &$count) {
+            $sisaJam = $guru->jam_kerja - $guru->jadwals_count;
+
+            $totalKerja += $guru->jadwals_count;
+            $count++;
+
+            return [
+                'guru_id'     => $guru->id,
+                'guru_nama'   => $guru->nama_guru,
+                'guru_kode'   => $guru->kode,
+                'jam_kerja'   => $guru->jam_kerja,
+                'kerja'       => $guru->jadwals_count,
+                'sisa'        => $sisaJam,
+                'avatarImg'   => asset('assets/images/avatars/' . ($guru->findUser?->faces ?? 'default.png')),
+                'kesimpulan'  => $this->resolveStatus($sisaJam),
+            ];
+        });
+
+        $statistik = $data->groupBy('kesimpulan.title')->map->count();
+
+        $summary = [
+            'rata_rata_kerja' => $count > 0 ? round($totalKerja / $count, 2) : 0,
+            'statistik' => $statistik,
+        ];
+
+        return $limit > 0 ? response()->json($data) : [$data,$summary];
     }
 
-    public function getDistribusiMapel()
+    public function getDistribusiMapel($limit = 5)
     {
-        $kelasMapels = KelasMapel::withCount(['jadwals'])->limit(5)->get();
-        $data = array();
+        $query = Mapel::withCount('jadwals');
 
-        foreach ($kelasMapels as $km) {
-            $sisaJam = $km->total_jam - $km->jadwals_count;
-
-            if ($sisaJam > 0) {
-                $keterangan = ['title' => 'Tidak Terpenuhi','status' => 'warning'];
-            } elseif ($sisaJam == 0) {
-                $keterangan = ['title' => 'Terpenuhi','status' => 'success'];
-            } else {
-                $keterangan = ['title' => 'Overtime','status' => 'error'];
-            }
-
-            $data[] = [
-                'mapel_id' => $km->mapel_id,
-                'mapel_nama' => $km->cariMapel->nama_mapel,
-                'mapel_kode' => $km->cariMapel->kode,
-                'total_jam' => $km->total_jam,
-                'terisi' => $km->jadwals_count,
-                'kesimpulan' => $keterangan,
-                'sisa' => $sisaJam
-            ];
+        if ($limit > 0) {
+            $query->limit($limit);
         }
 
-        return response()->json($data);
+        $kelasMapels = $query->get();
+        $totalStudy = 0;
+        $count = 0;
+
+        $data = $kelasMapels->map(function ($km) use (&$totalStudy, &$count) {
+            $sumJam = $km->kelasMapel->sum('total_jam');
+            $sisaJam = $sumJam - $km->jadwals_count;
+            $totalStudy += $km->jadwals_count;
+            $count++;
+
+            return [
+                'mapel_id'    => $km->id,
+                'mapel_nama'  => $km->nama_mapel ?? '-',
+                'mapel_kode'  => $km->kode ?? '-',
+                'total_jam'   => $sumJam,
+                'terisi'      => $km->jadwals_count,
+                'sisa'        => $sisaJam,
+                'kesimpulan'  => $this->resolveMapelStatus($sisaJam),
+            ];
+        });
+
+        $statistik = $data->groupBy('kesimpulan.title')->map->count();
+
+        $summary = [
+            'rata_rata_kerja' => $count > 0 ? round($totalStudy / $count, 2) : 0,
+            'statistik' => $statistik,
+        ];
+
+        return $limit > 0 ? response()->json($data) : [$data,$summary];
     }
+
+    private function resolveMapelStatus(int $sisaJam): array
+    {
+        return match (true) {
+            $sisaJam > 0   => ['title' => 'Tidak Terpenuhi', 'status' => 'warning'],
+            $sisaJam === 0 => ['title' => 'Terpenuhi',        'status' => 'success'],
+            $sisaJam < 0   => ['title' => 'Overtime',         'status' => 'error'],
+        };
+    }
+
+    private function resolveStatus(int $sisaJam): array
+    {
+        return match(true) {
+            $sisaJam > 0  => ['title' => 'Undertime', 'status' => 'success'],
+            $sisaJam === 0 => ['title' => 'On Time',   'status' => 'warning'],
+            $sisaJam < 0  => ['title' => 'Overtime',  'status' => 'error'],
+        };
+    }
+
+    public function getDistribusiMapelAll()
+    {
+        $data = $this->getDistribusiMapel(0);
+
+        return response()->json(['all' => $data[0],'stats' => $data[1]]);
+    }
+
+    public function getDistribusiWorktimeAll()
+    {
+        $data = $this->getDistribusiWorktime(0);
+
+        return response()->json(['all' => $data[0],'stats' => $data[1]]);
+    }
+
 }

@@ -27,6 +27,7 @@ import { useState, useEffect } from 'react';
 import api from '../../api';
 
 function ProductsSection() {
+	const navigate = useNavigate();
 	return (
 		<Card type="none">
 			<Stack direction="column" alignItems="flex-start">
@@ -40,6 +41,7 @@ function ProductsSection() {
 					sx={{
 						m: 1,
 					}}
+					onClick={() => navigate(`studytime`)}
 				>
 					View All
 				</Button>

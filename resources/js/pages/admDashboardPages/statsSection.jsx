@@ -55,7 +55,7 @@ function StatsSection() {
 				{
 					id: 4,
 					color: 'success.main',
-					name: 'Kelas Terjadwal',
+					name: 'Jam Terjadwal',
 					total: res.data.terjadwal,
 					Icon: ICON_MAP['Kelas Terjadwal'],
 				},

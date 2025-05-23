@@ -30,4 +30,13 @@ class Mapel extends Model
         return $this->inputType;
     }
 
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class, 'mapel_id', 'id');
+    }
+
+    public function kelasMapel()
+    {
+        return $this->hasMany(KelasMapel::class, 'mapel_id', 'id');
+    }
 }

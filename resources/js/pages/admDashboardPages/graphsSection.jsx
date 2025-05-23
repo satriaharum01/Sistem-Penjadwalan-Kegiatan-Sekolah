@@ -111,7 +111,7 @@ const bitcoinGraphConfig = {
 			enabled: true,
 		},
 		yaxis: {
-			max: 70,
+			max: 150,
 			show: false,
 		},
 	},
