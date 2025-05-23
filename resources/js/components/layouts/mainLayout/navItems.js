@@ -75,9 +75,9 @@ const NAV_LINKS_CONFIG = [
 	{
 		id: uuid(),
 		type: 'item',
-		title: 'Profil',
+		title: 'Pengguna',
 		Icon: AccountCircleOutlinedIcon,
-		href: '/profile',
+		href: '/admin/pengguna',
 	},
 ];
 

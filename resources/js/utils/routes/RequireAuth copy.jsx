@@ -3,7 +3,7 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-const RequireAuth = ({ children, allowedRoles = [] }) => {
+const RequireAuth = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
@@ -11,11 +11,6 @@ const RequireAuth = ({ children, allowedRoles = [] }) => {
 
   if (!user) {
     return <Navigate to="/account/login" state={{ from: location }} replace />;
-  }
-
-  // Kalau ada role yang diizinkan, cek apakah user termasuk
-  if (allowedRoles.length > 0 && !allowedRoles.includes(user.level)) {
-    return <Navigate to="/403" replace />;
   }
 
   return children;

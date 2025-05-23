@@ -49,7 +49,7 @@ function Router() {
 						<Route
 							path="/"
 							element={
-								<RequireAuth>
+								<RequireAuth allowedRoles={['Administrator']}>
 									<MainLayout />
 								</RequireAuth>
 							}
