@@ -11,13 +11,15 @@ export const AuthProvider = ({ children }) => {
 	// Fetch user setelah komponen pertama kali dimuat
 	useEffect(() => {
 		const fetchUser = async () => {
-			try {
-				const response = await api.get('/user');
-				setUser(response.data);
-			} catch (error) {
-				setUser(null); // Jika gagal, berarti belum login
-			} finally {
-				setLoading(false);
+			if (user == null) {
+				try {
+					const response = await api.get('/user');
+					setUser(response.data);
+				} catch (error) {
+					setUser(null); // Jika gagal, berarti belum login
+				} finally {
+					setLoading(false);
+				}
 			}
 		};
 
@@ -27,8 +29,8 @@ export const AuthProvider = ({ children }) => {
 	const login = async (email, password) => {
 		try {
 			const response = await api.post('/login', { email, password });
-			setUser(response.data); // Set user setelah login berhasil
-      console.log(response);
+			setUser(response.data.user); // Set user setelah login berhasil
+			console.log(response);
 		} catch (error) {
 			console.error('Login failed:', error);
 
