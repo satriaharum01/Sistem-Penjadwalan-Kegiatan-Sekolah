@@ -34,7 +34,7 @@ class AdminJadwalController extends Controller
                 ->orderby('mulai', 'ASC')
                 ->get()->map(function ($item, $index) {
                     $item->DT_RowIndex = $index + 1;
-                    $item->periode = date('h:i', strtotime($item->mulai)) . ' - '. date('h:i', strtotime($item->selesai));
+                    $item->periode = date('H:i', strtotime($item->mulai)) . ' - '. date('H:i', strtotime($item->selesai));
                     return $item;
                 });
 

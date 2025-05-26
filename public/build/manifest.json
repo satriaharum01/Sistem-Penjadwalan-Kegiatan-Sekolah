@@ -1,128 +1,121 @@
 {
-  "_AccessTime-d92d1731.js": {
-    "file": "assets/AccessTime-d92d1731.js",
+  "_AccessTime-843515b1.js": {
+    "file": "assets/AccessTime-843515b1.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_AutoStories-d9865dda.js": {
-    "file": "assets/AutoStories-d9865dda.js",
+  "_AutoStories-7aa612cf.js": {
+    "file": "assets/AutoStories-7aa612cf.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_Delete-f6b25abe.js": {
-    "file": "assets/Delete-f6b25abe.js",
+  "_Delete-9dcc0c6c.js": {
+    "file": "assets/Delete-9dcc0c6c.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_DeleteOutline-625165ed.js": {
-    "file": "assets/DeleteOutline-625165ed.js",
+  "_DeleteOutline-2e816788.js": {
+    "file": "assets/DeleteOutline-2e816788.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_EditCalendar-930d95dc.js": {
-    "file": "assets/EditCalendar-930d95dc.js",
+  "_EditCalendar-02704595.js": {
+    "file": "assets/EditCalendar-02704595.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_HandshakeOutlined-27d87a60.js": {
-    "file": "assets/HandshakeOutlined-27d87a60.js",
+  "_HandshakeOutlined-1f047a9b.js": {
+    "file": "assets/HandshakeOutlined-1f047a9b.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_KeyboardBackspace-3d6a5fe0.js": {
-    "file": "assets/KeyboardBackspace-3d6a5fe0.js",
+  "_KeyboardBackspace-0fe88149.js": {
+    "file": "assets/KeyboardBackspace-0fe88149.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_MenuBookOutlined-81029af1.js": {
-    "file": "assets/MenuBookOutlined-81029af1.js",
+  "_MenuBookOutlined-5c2cba9e.js": {
+    "file": "assets/MenuBookOutlined-5c2cba9e.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_ModeEditOutlineOutlined-ded61209.js": {
-    "file": "assets/ModeEditOutlineOutlined-ded61209.js",
+  "_ModeEditOutlineOutlined-b8df7544.js": {
+    "file": "assets/ModeEditOutlineOutlined-b8df7544.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_RemoveCircleOutline-0e77cf33.js": {
-    "file": "assets/RemoveCircleOutline-0e77cf33.js",
+  "_RemoveCircleOutline-2feb8d04.js": {
+    "file": "assets/RemoveCircleOutline-2feb8d04.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_Search-8ea03276.js": {
-    "file": "assets/Search-8ea03276.js",
+  "_Search-8ff107c8.js": {
+    "file": "assets/Search-8ff107c8.js",
     "imports": [
       "resources/js/main.jsx",
-      "_Select-d41903d6.js"
+      "_Select-87905aba.js"
     ]
   },
-  "_Select-d41903d6.js": {
-    "file": "assets/Select-d41903d6.js",
+  "_Select-87905aba.js": {
+    "file": "assets/Select-87905aba.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_SwitchBase-e29f3a52.js": {
-    "file": "assets/SwitchBase-e29f3a52.js",
+  "_SwitchBase-63a968a5.js": {
+    "file": "assets/SwitchBase-63a968a5.js",
     "imports": [
       "resources/js/main.jsx",
-      "_Select-d41903d6.js"
+      "_Select-87905aba.js"
     ]
   },
-  "_Sync-b8c49b29.js": {
-    "file": "assets/Sync-b8c49b29.js",
+  "_TableRow-71ece5aa.js": {
+    "file": "assets/TableRow-71ece5aa.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_TableRow-44d43583.js": {
-    "file": "assets/TableRow-44d43583.js",
-    "imports": [
-      "resources/js/main.jsx"
-    ]
-  },
-  "_TextField-0ed0009e.js": {
-    "file": "assets/TextField-0ed0009e.js",
+  "_TextField-9988ede6.js": {
+    "file": "assets/TextField-9988ede6.js",
     "imports": [
       "resources/js/main.jsx",
-      "_Select-d41903d6.js"
+      "_Select-87905aba.js"
     ]
   },
-  "_customLoader-cbb091f5.js": {
-    "file": "assets/customLoader-cbb091f5.js",
-    "imports": [
-      "resources/js/main.jsx",
-      "_Sync-b8c49b29.js"
-    ]
-  },
-  "_index-0664d56e.js": {
-    "file": "assets/index-0664d56e.js",
+  "_customLoader-948ca996.js": {
+    "file": "assets/customLoader-948ca996.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_index-15295623.js": {
-    "file": "assets/index-15295623.js",
+  "_index-11b787d0.js": {
+    "file": "assets/index-11b787d0.js",
     "imports": [
       "resources/js/main.jsx"
     ]
   },
-  "_index-586c0b31.js": {
-    "file": "assets/index-586c0b31.js",
+  "_index-2870f757.js": {
+    "file": "assets/index-2870f757.js",
+    "imports": [
+      "resources/js/main.jsx"
+    ]
+  },
+  "_index-547e9edc.js": {
+    "file": "assets/index-547e9edc.js",
     "imports": [
       "resources/js/main.jsx",
-      "_TableRow-44d43583.js",
-      "_Select-d41903d6.js"
+      "_TableRow-71ece5aa.js",
+      "_Select-87905aba.js"
     ]
   },
   "_layoutHeight-dd8f1718.js": {
@@ -355,6 +348,50 @@
     "file": "assets/rubik-latin-ext-700-normal-7a6587e6.woff2",
     "src": "node_modules/@fontsource/rubik/files/rubik-latin-ext-700-normal.woff2"
   },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf": {
+    "file": "assets/fa-brands-400-808443ae.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400-d7236a19.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf": {
+    "file": "assets/fa-regular-400-54cf6086.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
+    "file": "assets/fa-regular-400-e3456d12.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
+    "file": "assets/fa-solid-900-d2f05935.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900-aa759986.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf": {
+    "file": "assets/fa-v4compatibility-30f6abf6.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2": {
+    "file": "assets/fa-v4compatibility-0ce9033c.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
+  },
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
+    "file": "assets/bootstrap-icons-f55513b7.woff",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
+  },
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
+    "file": "assets/bootstrap-icons-6c757103.woff2",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
+  },
+  "node_modules/owl.carousel/dist/assets/owl.video.play.png": {
+    "file": "assets/owl.video.play-04360456.png",
+    "src": "node_modules/owl.carousel/dist/assets/owl.video.play.png"
+  },
   "resources/js/assets/images/avatars/avatar_1.png": {
     "file": "assets/avatar_1-339c26a9.png",
     "src": "resources/js/assets/images/avatars/avatar_1.png"
@@ -521,6 +558,8 @@
       "assets/main-ef56506f.css"
     ],
     "dynamicImports": [
+      "resources/js/pages/landingPages/index.jsx",
+      "resources/js/pages/landingPages/index.jsx",
       "resources/js/pages/admDashboardPages/index.jsx",
       "resources/js/pages/admDashboardPages/section/distributedWorktime.jsx",
       "resources/js/pages/admDashboardPages/section/distributedMapel.jsx",
@@ -542,84 +581,113 @@
       "resources/js/pages/jadwalPages/index.jsx",
       "resources/js/pages/jadwalPages/setup.jsx",
       "resources/js/pages/jadwalPages/jadwalKelas.jsx",
-      "resources/js/pages/jadwalPages/newFormJadwal.jsx"
+      "resources/js/pages/jadwalPages/newFormJadwal.jsx",
+      "resources/js/pages/agendaPages/index.jsx",
+      "resources/js/pages/agendaPages/newFormAgenda.jsx"
     ],
-    "file": "assets/main-82adeeac.js",
+    "file": "assets/main-e80b8f4e.js",
     "isEntry": true,
     "src": "resources/js/main.jsx"
   },
   "resources/js/pages/admDashboardPages/index.jsx": {
-    "file": "assets/index-727afb7d.js",
+    "file": "assets/index-210b9885.js",
     "imports": [
       "resources/js/main.jsx",
-      "_index-0664d56e.js",
-      "_customLoader-cbb091f5.js",
-      "_EditCalendar-930d95dc.js",
-      "_Sync-b8c49b29.js",
-      "_AutoStories-d9865dda.js",
-      "_TableRow-44d43583.js"
+      "_index-2870f757.js",
+      "_customLoader-948ca996.js",
+      "_EditCalendar-02704595.js",
+      "_AutoStories-7aa612cf.js",
+      "_TableRow-71ece5aa.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/admDashboardPages/index.jsx"
   },
   "resources/js/pages/admDashboardPages/section/distributedMapel.jsx": {
-    "file": "assets/distributedMapel-2deb29f1.js",
+    "file": "assets/distributedMapel-88dc7fc4.js",
     "imports": [
       "resources/js/main.jsx",
-      "_customLoader-cbb091f5.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_AutoStories-d9865dda.js",
-      "_AccessTime-d92d1731.js",
-      "_RemoveCircleOutline-0e77cf33.js",
+      "_customLoader-948ca996.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_AutoStories-7aa612cf.js",
+      "_AccessTime-843515b1.js",
+      "_RemoveCircleOutline-2feb8d04.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TableRow-44d43583.js",
-      "_Sync-b8c49b29.js"
+      "_TableRow-71ece5aa.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/admDashboardPages/section/distributedMapel.jsx"
   },
   "resources/js/pages/admDashboardPages/section/distributedWorktime.jsx": {
-    "file": "assets/distributedWorktime-3109fb2b.js",
+    "file": "assets/distributedWorktime-ccdc9091.js",
     "imports": [
       "resources/js/main.jsx",
-      "_customLoader-cbb091f5.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_AccessTime-d92d1731.js",
-      "_RemoveCircleOutline-0e77cf33.js",
+      "_customLoader-948ca996.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_AccessTime-843515b1.js",
+      "_RemoveCircleOutline-2feb8d04.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TableRow-44d43583.js",
-      "_Sync-b8c49b29.js"
+      "_TableRow-71ece5aa.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/admDashboardPages/section/distributedWorktime.jsx"
   },
-  "resources/js/pages/componentsPages/forms/index.jsx": {
-    "file": "assets/index-9ce6a22a.js",
+  "resources/js/pages/agendaPages/index.jsx": {
+    "file": "assets/index-ead74275.js",
     "imports": [
       "resources/js/main.jsx",
-      "_Search-8ea03276.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_TextField-0ed0009e.js",
-      "_Select-d41903d6.js"
+      "_ModeEditOutlineOutlined-b8df7544.js",
+      "_DeleteOutline-2e816788.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_index-547e9edc.js",
+      "_sweetalert2.esm.all-7820e9f9.js",
+      "_TableRow-71ece5aa.js",
+      "_Select-87905aba.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/agendaPages/index.jsx"
+  },
+  "resources/js/pages/agendaPages/newFormAgenda.jsx": {
+    "file": "assets/newFormAgenda-f6e71e2e.js",
+    "imports": [
+      "resources/js/main.jsx",
+      "_KeyboardBackspace-0fe88149.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_sweetalert2.esm.all-7820e9f9.js",
+      "_TextField-9988ede6.js",
+      "_Select-87905aba.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/agendaPages/newFormAgenda.jsx"
+  },
+  "resources/js/pages/componentsPages/forms/index.jsx": {
+    "file": "assets/index-b6895b5b.js",
+    "imports": [
+      "resources/js/main.jsx",
+      "_Search-8ff107c8.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_TextField-9988ede6.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/componentsPages/forms/index.jsx"
   },
   "resources/js/pages/componentsPages/tables/index.jsx": {
-    "file": "assets/index-ec46c845.js",
+    "file": "assets/index-6073d4de.js",
     "imports": [
       "resources/js/main.jsx",
-      "_index-0664d56e.js",
-      "_Search-8ea03276.js",
-      "_ModeEditOutlineOutlined-ded61209.js",
-      "_index-15295623.js",
-      "_TableRow-44d43583.js",
-      "_TextField-0ed0009e.js",
-      "_index-586c0b31.js",
-      "_Select-d41903d6.js"
+      "_index-2870f757.js",
+      "_Search-8ff107c8.js",
+      "_ModeEditOutlineOutlined-b8df7544.js",
+      "_index-11b787d0.js",
+      "_TableRow-71ece5aa.js",
+      "_TextField-9988ede6.js",
+      "_index-547e9edc.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/componentsPages/tables/index.jsx"
@@ -631,232 +699,259 @@
       "assets/discover_card-5647f822.png",
       "assets/mastercard_card-ab1be2bf.png"
     ],
-    "file": "assets/index-42ce11f2.js",
+    "file": "assets/index-22c2bbf4.js",
     "imports": [
       "resources/js/main.jsx",
       "_layoutHeight-dd8f1718.js",
-      "_HandshakeOutlined-27d87a60.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_TextField-0ed0009e.js",
-      "_SwitchBase-e29f3a52.js",
-      "_TableRow-44d43583.js",
-      "_Select-d41903d6.js"
+      "_HandshakeOutlined-1f047a9b.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_TextField-9988ede6.js",
+      "_SwitchBase-63a968a5.js",
+      "_TableRow-71ece5aa.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/editProfile/index.jsx"
   },
   "resources/js/pages/guruPages/index.jsx": {
-    "file": "assets/index-6323cd79.js",
+    "file": "assets/index-ec1234d3.js",
     "imports": [
       "resources/js/main.jsx",
-      "_ModeEditOutlineOutlined-ded61209.js",
-      "_DeleteOutline-625165ed.js",
-      "_MenuBookOutlined-81029af1.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_index-586c0b31.js",
+      "_ModeEditOutlineOutlined-b8df7544.js",
+      "_DeleteOutline-2e816788.js",
+      "_MenuBookOutlined-5c2cba9e.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_index-547e9edc.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TableRow-44d43583.js",
-      "_Select-d41903d6.js"
+      "_TableRow-71ece5aa.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/guruPages/index.jsx"
   },
   "resources/js/pages/guruPages/newFormGuru.jsx": {
-    "file": "assets/newFormGuru-fef2699b.js",
+    "file": "assets/newFormGuru-a1263dc0.js",
     "imports": [
       "resources/js/main.jsx",
-      "_KeyboardBackspace-3d6a5fe0.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_TextField-0ed0009e.js",
-      "_Select-d41903d6.js"
+      "_KeyboardBackspace-0fe88149.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_TextField-9988ede6.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/guruPages/newFormGuru.jsx"
   },
   "resources/js/pages/guruPages/newFormGuruMapel.jsx": {
-    "file": "assets/newFormGuruMapel-1dd039b9.js",
+    "file": "assets/newFormGuruMapel-2efdc265.js",
     "imports": [
       "resources/js/main.jsx",
-      "_KeyboardBackspace-3d6a5fe0.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
+      "_KeyboardBackspace-0fe88149.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TextField-0ed0009e.js",
-      "_Delete-f6b25abe.js",
-      "_Select-d41903d6.js"
+      "_TextField-9988ede6.js",
+      "_Delete-9dcc0c6c.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/guruPages/newFormGuruMapel.jsx"
   },
   "resources/js/pages/jadwalPages/index.jsx": {
-    "file": "assets/index-cac2217a.js",
+    "file": "assets/index-fea93d24.js",
     "imports": [
       "resources/js/main.jsx",
-      "_Sync-b8c49b29.js",
-      "_EditCalendar-930d95dc.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_index-586c0b31.js",
+      "_EditCalendar-02704595.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_index-547e9edc.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TableRow-44d43583.js",
-      "_Select-d41903d6.js"
+      "_TableRow-71ece5aa.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/jadwalPages/index.jsx"
   },
   "resources/js/pages/jadwalPages/jadwalKelas.jsx": {
-    "file": "assets/jadwalKelas-0387ecbc.js",
+    "file": "assets/jadwalKelas-c99882b1.js",
     "imports": [
       "resources/js/main.jsx",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_TableRow-44d43583.js"
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_TableRow-71ece5aa.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/jadwalPages/jadwalKelas.jsx"
   },
   "resources/js/pages/jadwalPages/newFormJadwal.jsx": {
-    "file": "assets/newFormJadwal-e12052a5.js",
+    "file": "assets/newFormJadwal-4abb3c5c.js",
     "imports": [
       "resources/js/main.jsx",
-      "_KeyboardBackspace-3d6a5fe0.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_TextField-0ed0009e.js",
-      "_Select-d41903d6.js"
+      "_KeyboardBackspace-0fe88149.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_TextField-9988ede6.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/jadwalPages/newFormJadwal.jsx"
   },
   "resources/js/pages/jadwalPages/setup.jsx": {
-    "file": "assets/setup-ca979bed.js",
+    "file": "assets/setup-9d3b07d8.js",
     "imports": [
       "resources/js/main.jsx",
-      "_ModeEditOutlineOutlined-ded61209.js",
-      "_DeleteOutline-625165ed.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_index-586c0b31.js",
+      "_ModeEditOutlineOutlined-b8df7544.js",
+      "_DeleteOutline-2e816788.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_index-547e9edc.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TableRow-44d43583.js",
-      "_Select-d41903d6.js"
+      "_TableRow-71ece5aa.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/jadwalPages/setup.jsx"
   },
   "resources/js/pages/kelasPages/index.jsx": {
-    "file": "assets/index-bd69e5ea.js",
+    "file": "assets/index-c871d019.js",
     "imports": [
       "resources/js/main.jsx",
-      "_ModeEditOutlineOutlined-ded61209.js",
-      "_DeleteOutline-625165ed.js",
-      "_MenuBookOutlined-81029af1.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_index-586c0b31.js",
+      "_ModeEditOutlineOutlined-b8df7544.js",
+      "_DeleteOutline-2e816788.js",
+      "_MenuBookOutlined-5c2cba9e.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_index-547e9edc.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TableRow-44d43583.js",
-      "_Select-d41903d6.js"
+      "_TableRow-71ece5aa.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/kelasPages/index.jsx"
   },
   "resources/js/pages/kelasPages/newFormKelas.jsx": {
-    "file": "assets/newFormKelas-d6d1f069.js",
+    "file": "assets/newFormKelas-561096bc.js",
     "imports": [
       "resources/js/main.jsx",
-      "_KeyboardBackspace-3d6a5fe0.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_TextField-0ed0009e.js",
-      "_Select-d41903d6.js"
+      "_KeyboardBackspace-0fe88149.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_TextField-9988ede6.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/kelasPages/newFormKelas.jsx"
   },
   "resources/js/pages/kelasPages/newFormKelasMapel.jsx": {
-    "file": "assets/newFormKelasMapel-c85d7a88.js",
+    "file": "assets/newFormKelasMapel-86c4f4f5.js",
     "imports": [
       "resources/js/main.jsx",
-      "_KeyboardBackspace-3d6a5fe0.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
+      "_KeyboardBackspace-0fe88149.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TextField-0ed0009e.js",
-      "_Select-d41903d6.js",
-      "_SwitchBase-e29f3a52.js",
-      "_Delete-f6b25abe.js"
+      "_TextField-9988ede6.js",
+      "_Select-87905aba.js",
+      "_SwitchBase-63a968a5.js",
+      "_Delete-9dcc0c6c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/kelasPages/newFormKelasMapel.jsx"
   },
+  "resources/js/pages/landingPages/index.css": {
+    "file": "assets/index-18b71e15.css",
+    "src": "resources/js/pages/landingPages/index.css"
+  },
+  "resources/js/pages/landingPages/index.jsx": {
+    "assets": [
+      "assets/owl.video.play-04360456.png",
+      "assets/fa-brands-400-d7236a19.woff2",
+      "assets/fa-brands-400-808443ae.ttf",
+      "assets/fa-regular-400-e3456d12.woff2",
+      "assets/fa-regular-400-54cf6086.ttf",
+      "assets/fa-solid-900-aa759986.woff2",
+      "assets/fa-solid-900-d2f05935.ttf",
+      "assets/fa-v4compatibility-0ce9033c.woff2",
+      "assets/fa-v4compatibility-30f6abf6.ttf",
+      "assets/bootstrap-icons-6c757103.woff2",
+      "assets/bootstrap-icons-f55513b7.woff"
+    ],
+    "css": [
+      "assets/index-18b71e15.css"
+    ],
+    "file": "assets/index-3dd90ff9.js",
+    "imports": [
+      "resources/js/main.jsx"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/landingPages/index.jsx"
+  },
   "resources/js/pages/loginPages/loginSimple/index.jsx": {
-    "file": "assets/index-a56683b5.js",
+    "file": "assets/index-74c59f4c.js",
     "imports": [
       "resources/js/main.jsx",
-      "_TextField-0ed0009e.js",
-      "_Select-d41903d6.js"
+      "_TextField-9988ede6.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/loginPages/loginSimple/index.jsx"
   },
   "resources/js/pages/mataPelajaran/index.jsx": {
-    "file": "assets/index-0dbc939e.js",
+    "file": "assets/index-c806a333.js",
     "imports": [
       "resources/js/main.jsx",
-      "_ModeEditOutlineOutlined-ded61209.js",
-      "_DeleteOutline-625165ed.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
-      "_index-586c0b31.js",
+      "_ModeEditOutlineOutlined-b8df7544.js",
+      "_DeleteOutline-2e816788.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
+      "_index-547e9edc.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TableRow-44d43583.js",
-      "_Select-d41903d6.js"
+      "_TableRow-71ece5aa.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/mataPelajaran/index.jsx"
   },
   "resources/js/pages/mataPelajaran/newFormMapel.jsx": {
-    "file": "assets/newFormMapel-1fa0efec.js",
+    "file": "assets/newFormMapel-c4525678.js",
     "imports": [
       "resources/js/main.jsx",
-      "_KeyboardBackspace-3d6a5fe0.js",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
+      "_KeyboardBackspace-0fe88149.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
       "_sweetalert2.esm.all-7820e9f9.js",
-      "_TextField-0ed0009e.js",
-      "_Select-d41903d6.js"
+      "_TextField-9988ede6.js",
+      "_Select-87905aba.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/mataPelajaran/newFormMapel.jsx"
   },
   "resources/js/pages/notificationsPage/index.jsx": {
-    "file": "assets/index-4f464fad.js",
+    "file": "assets/index-c6813119.js",
     "imports": [
       "resources/js/main.jsx",
-      "_AccessTime-d92d1731.js",
-      "_index-15295623.js"
+      "_AccessTime-843515b1.js",
+      "_index-11b787d0.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/notificationsPage/index.jsx"
   },
   "resources/js/pages/sample/index.jsx": {
-    "file": "assets/index-61ffb536.js",
+    "file": "assets/index-631e8edd.js",
     "imports": [
       "resources/js/main.jsx",
-      "_index-0664d56e.js",
-      "_index-15295623.js",
+      "_index-2870f757.js",
+      "_index-11b787d0.js",
       "_layoutHeight-dd8f1718.js",
-      "_HandshakeOutlined-27d87a60.js"
+      "_HandshakeOutlined-1f047a9b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/pages/sample/index.jsx"
   },
   "resources/js/pages/wip/index.jsx": {
-    "file": "assets/index-0ba9971c.js",
+    "file": "assets/index-42455302.js",
     "imports": [
       "resources/js/main.jsx",
       "_layoutHeight-dd8f1718.js"

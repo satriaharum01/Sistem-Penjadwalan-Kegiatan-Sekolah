@@ -5,6 +5,7 @@ import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SpeedIcon from '@mui/icons-material/Speed';
 import GroupIcon from '@mui/icons-material/Group';
@@ -47,13 +48,16 @@ const NAV_LINKS_CONFIG = [
 	},
 	{
 		id: uuid(),
-		type: 'item',
+		type: 'group',
 		title: 'Mata Pelajaran',
 		Icon: MenuBookIcon,
-		href: '/admin/mapel',
 		menuChildren: [
 			{
-				title: '',
+				title: 'Data Mapel',
+				href: '/admin/mapel/',
+			},
+			{
+				title: 'Tambah Mapel',
 				href: '/admin/mapel/new',
 			},
 		]
@@ -74,11 +78,27 @@ const NAV_LINKS_CONFIG = [
 	},
 	{
 		id: uuid(),
+		type: 'group',
+		title: 'Agenda',
+		Icon: EventNoteIcon,
+		menuChildren: [
+			{
+				title: 'Data Agenda',
+				href: '/admin/agenda',
+			},
+			{
+				title: 'Jenis Agenda',
+				href: '/admin/agenda/jenis',
+			},
+		]
+	},
+	{
+		id: uuid(),
 		type: 'item',
 		title: 'Pengguna',
 		Icon: AccountCircleOutlinedIcon,
 		href: '/admin/pengguna',
-	},
+	}
 ];
 
 export default NAV_LINKS_CONFIG;

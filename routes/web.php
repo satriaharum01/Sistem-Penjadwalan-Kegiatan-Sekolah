@@ -23,6 +23,9 @@ Route::prefix('get')->name('get.')->group(function () {
     });
     Route::get('/stream-jadwal-log', [App\Http\Controllers\JadwalController::class, 'streamLog']);
 });
+
+Route::GET('/', [App\Http\Controllers\FrontController::class, 'index']);
+
 Route::get('/{any}', function () {
     return view('react');
 })->where('any', '.*');

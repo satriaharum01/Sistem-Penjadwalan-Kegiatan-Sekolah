@@ -8,10 +8,12 @@ import MinimalLayout from '@/components/layouts/minimalLayout';
 import MainLayout from '@/components/layouts/mainLayout';
 
 import RequireAuth from './RequireAuth';
+import PublicOnlyRoute from './PublicOnlyRoute';
 import { AuthProvider } from '../../context/AuthContext';
 
 import Page404 from '@/pages/errorPages/404';
 
+const LandingPages = withLazyLoadably(lazy(() => import('@/pages/landingPages')));
 const DashboardPage = withLazyLoadably(lazy(() => import('@/pages/admDashboardPages')));
 const WorktimePage = withLazyLoadably(lazy(() => import('@/pages/admDashboardPages/section/distributedWorktime')));
 const DistributedMapelPage = withLazyLoadably(lazy(() => import('@/pages/admDashboardPages/section/distributedMapel')));
@@ -34,6 +36,8 @@ const JadwalPage = withLazyLoadably(lazy(() => import('@/pages/jadwalPages')));
 const AturJadwalPage = withLazyLoadably(lazy(() => import('@/pages/jadwalPages/setup')));
 const JadwalKelas = withLazyLoadably(lazy(() => import('@/pages/jadwalPages/jadwalKelas')));
 const NewFormJadwal = withLazyLoadably(lazy(() => import('@/pages/jadwalPages/newFormJadwal')));
+const AgendaPage = withLazyLoadably(lazy(() => import('@/pages/agendaPages')));
+const NewFormAgenda = withLazyLoadably(lazy(() => import('@/pages/agendaPages/newFormAgenda')));
 
 function Router() {
 	return (
@@ -41,28 +45,34 @@ function Router() {
 			<BrowserRouter basename="/">
 				<ScrollToTopOnRouteChange>
 					<Routes>
-						<Route path="/" element={<MinimalLayout />}>
-							<Route path="account/">
-								<Route path="login" element={<LoginSimplePage />} />
-							</Route>
-						</Route>
 						<Route
 							path="/"
 							element={
-								<RequireAuth allowedRoles={['Administrator']}>
-									<MainLayout />
-								</RequireAuth>
+								<PublicOnlyRoute>
+									<MinimalLayout />
+								</PublicOnlyRoute>
 							}
 						>
-							<Route index element={<DashboardPage />} />
+							<Route path="account/">
+								<Route path="login" element={<LoginSimplePage />} />
+							</Route>
+							<Route path="403" element={<WIPPage />} />
+						</Route>
+						<Route path="/">
 							<Route path="samplePage" element={<SamplePage />} />
 
-							<Route path="admin/">
+							<Route
+								path="admin/"
+								element={
+									<RequireAuth allowedRoles={['Administrator']}>
+										<MainLayout />
+									</RequireAuth>
+								}
+							>
+								{/* List Dashboard */}
 								<Route path="dashboard" element={<DashboardPage />} />
 								<Route path="dashboard/worktime" element={<WorktimePage />} />
 								<Route path="dashboard/studytime" element={<DistributedMapelPage />} />
-							</Route>
-							<Route path="admin/">
 								{/* List Mapel */}
 								<Route path="mapel" element={<MapelPage />} />
 								<Route path="mapel/new" element={<NewFormMapel />} />
@@ -83,6 +93,10 @@ function Router() {
 								<Route path="jadwal/kelas/:id" element={<JadwalKelas />} />
 								<Route path="jadwal/edit/:id" element={<NewFormJadwal />} />
 								<Route path="jadwal/add/time" element={<NewFormJadwal />} />
+								{/* List Agenda */}
+								<Route path="agenda" element={<AgendaPage />} />
+								<Route path="agenda/new" element={<NewFormAgenda />} />
+								<Route path="agenda/edit/:id" element={<NewFormAgenda />} />
 							</Route>
 
 							<Route path="pages/">

@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
-import Loader from '@/components/loader';
+import Loader9 from '@/components/loader';
 
 // eslint-disable-next-line react/function-component-definition
 const Loadable = (Component) => (props) =>
 	(
 		<Suspense
 			fallback={
-				<Loader
+				<Loader9
 					addSx={{
 						mt: 5,
 					}}

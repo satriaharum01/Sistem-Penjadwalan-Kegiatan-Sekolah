@@ -50,6 +50,14 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::GET('/get/distributed-worktime/all', [App\Http\Controllers\AdminDashboardController::class, 'getDistribusiWorktimeAll']);
 });
 
+Route::prefix('agenda')->name('agenda.')->group(function () {
+    Route::GET('/get', [App\Http\Controllers\AdminAgendaController::class, 'json']);
+    Route::POST('/store', [App\Http\Controllers\AdminAgendaController::class, 'store']);
+    Route::POST('/update/{id}', [App\Http\Controllers\AdminAgendaController::class, 'update']);
+    Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminAgendaController::class, 'destroy']);
+    Route::GET('/find/{id}', [App\Http\Controllers\AdminAgendaController::class, 'find']);
+});
+
 Route::prefix('mapel')->name('mapel.')->group(function () {
     Route::GET('/get', [App\Http\Controllers\AdminMapelController::class, 'json']);
     Route::POST('/store', [App\Http\Controllers\AdminMapelController::class, 'store']);

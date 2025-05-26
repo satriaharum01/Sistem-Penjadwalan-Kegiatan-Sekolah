@@ -129,7 +129,7 @@ function LoginForm() {
 		setIsLoading(true);
 		setTimeout(() => {
 			setIsLoading(false);
-			navigate('/');
+			navigate('/403');
 		}, 1500);
 	};
 	return (
