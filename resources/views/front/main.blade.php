@@ -41,7 +41,7 @@
         <!-- Spinner End -->
 
         <!-- Topbar Start -->
-        <div class="container-fluid topbar bg-light px-5 d-none d-lg-block">
+        <div class="container-fluid topbar bg-light px-5 d-none d-lg-block" id="mainTop">
             <div class="row gx-0 align-items-center">
                 <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
                     <div class="d-flex flex-wrap">
@@ -56,9 +56,8 @@
                         <div class="dropdown">
                             <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i class="fa fa-home text-primary me-2"></i> My Menu</small></a>
                             <div class="dropdown-menu rounded">
-                                <a href="#" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
-                                <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Dashboard</a>
-                                <a href="#" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                                <a href="{{url('admin/dashboard')}}" class="dropdown-item"><i class="fas fa-cog me-2"></i> Dashboard</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
                             </div>
                         </div> 
                         @else
@@ -82,18 +81,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Agenda</a>
-                        <a href="service.html" class="nav-item nav-link">Eskul</a>
-                        <a href="blog.html" class="nav-item nav-link">Kegiatan</a>
+                        <a href="#mainTop" class="nav-item nav-link active">Home</a>
+                        <a href="{{url('agenda')}}" class="nav-item nav-link">Agenda</a>
+                        <a href="#eskul" class="nav-item nav-link">Eskul</a>
+                        <a href="{{url('jadwal')}}" class="nav-item nav-link">Jadwal</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link" data-bs-toggle="dropdown">
                                 <span class="dropdown-toggle">Tentang Sekolah</span>
                             </a>
                             <div class="dropdown-menu m-0">
-                                <a href="feature.html" class="dropdown-item">Stuktur Organisasi</a>
-                                <a href="team.html" class="dropdown-item">Guru</a>
-                                <a href="testimonial.html" class="dropdown-item">Visi Misi</a>
+                                <a href="{{url('organisasi')}}" class="dropdown-item">Stuktur Organisasi</a>
+                                <a href="{{url('guru')}}" class="dropdown-item">Guru</a>
+                                <a href="#visiMisi" class="dropdown-item">Visi Misi</a>
                             </div>
                         </div>
                     </div>
@@ -163,7 +162,7 @@
 
 
         <!-- Abvout Start -->
-        <div class="container-fluid about py-5">
+        <div class="container-fluid about py-5" >
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-xl-7 wow fadeInLeft" data-wow-delay="0.2s">
@@ -218,7 +217,7 @@
         <!-- About End -->
 
         <!-- Services Start -->
-        <div class="container-fluid service pb-5">
+        <div class="container-fluid service pb-5" id="eskul">
             <div class="container pb-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                     <h4 class="text-primary">Ekstrakurikuler Kami</h4>
@@ -298,7 +297,7 @@
         <!-- Services End -->
 
         <!-- Features Start -->
-        <div class="container-fluid feature pb-5">
+        <div class="container-fluid feature pb-5" id="visiMisi">
             <div class="container pb-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
                     <h4 class="text-primary">Landasan Operasional</h4>
@@ -340,7 +339,7 @@
         <!-- Features End -->
 
 
-        <!-- Offer Start -->
+        <!-- Offer Start ->
         <div class="container-fluid offer-section pb-5">
             <div class="container pb-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
@@ -427,7 +426,7 @@
         </div>
         <!-- Offer End -->
 
-        <!-- Blog Start -->
+        <!-- Blog Start ->
         <div class="container-fluid blog pb-5">
             <div class="container pb-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
@@ -699,6 +698,7 @@
         </div>
         <!-- Copyright End -->
 
+        @include('front.logoutModal')
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   

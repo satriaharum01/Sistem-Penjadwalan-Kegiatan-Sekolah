@@ -77,6 +77,7 @@ class Controller extends BaseController
                 if ($item->mapel_id == null) {
                     $tableData[] = [
                         'hari' => $item->hari,
+                        'index' => $index,
                         'mulai' => $item->mulai,
                         'selesai' => $item->selesai,
                         'kelas'  => '-' ,
@@ -88,6 +89,7 @@ class Controller extends BaseController
 
                     $tableData[] = [
                         'hari' => $item->hari,
+                        'index' => $index,
                         'mulai' => $item->mulai,
                         'selesai' => $item->selesai,
                         'jenis'  =>  $item->jenis ,
@@ -101,5 +103,44 @@ class Controller extends BaseController
         }
 
         return response()->json($tableData);
+    }
+    public function groupByDayNotJson($groupedByDayAndClass)
+    {
+        $tableData = [];
+
+        foreach ($groupedByDayAndClass as $day => $items) {
+            $tableData[] = ['isHari' => true, 'hari' => $day];
+
+            $index = 1;
+            foreach ($items as $item) {
+                if ($item->mapel_id == null) {
+                    $tableData[] = [
+                        'hari' => $item->hari,
+                        'index' => $index,
+                        'mulai' => $item->mulai,
+                        'selesai' => $item->selesai,
+                        'kelas'  => '-' ,
+                        'mapel'  =>  $item->jenis ,
+                        'jenis'  =>  $item->jenis ,
+                        'guru'   =>  $item->jenis,
+                    ];
+                } else {
+
+                    $tableData[] = [
+                        'hari' => $item->hari,
+                        'index' => $index,
+                        'mulai' => $item->mulai,
+                        'selesai' => $item->selesai,
+                        'jenis'  =>  $item->jenis ,
+                        'kelas'  =>  $item->kelas->nama_kelas ,
+                        'mapel'  =>  $item->mapel->nama_mapel ,
+                        'guru'   =>  $item->guru->nama_guru,
+                    ];
+                }
+                $index++;
+            }
+        }
+
+        return $tableData;
     }
 }

@@ -21,10 +21,15 @@ Route::prefix('get')->name('get.')->group(function () {
     Route::prefix('prediksi')->name('prediksi.')->group(function () {
         Route::GET('/analys', [App\Http\Controllers\HomeController::class, 'analys']);
     });
+    Route::GET('/mapel-by-kelas', [App\Http\Controllers\FrontController::class, 'mapelByKelas']);
     Route::get('/stream-jadwal-log', [App\Http\Controllers\JadwalController::class, 'streamLog']);
 });
 
 Route::GET('/', [App\Http\Controllers\FrontController::class, 'index']);
+Route::GET('/agenda', [App\Http\Controllers\FrontController::class, 'agenda']);
+Route::GET('/organisasi', [App\Http\Controllers\FrontController::class, 'organisasi']);
+Route::GET('/jadwal', [App\Http\Controllers\FrontController::class, 'jadwal']);
+Route::POST('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 Route::get('/{any}', function () {
     return view('react');

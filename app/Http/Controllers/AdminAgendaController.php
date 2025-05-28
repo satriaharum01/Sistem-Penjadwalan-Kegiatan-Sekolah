@@ -39,8 +39,7 @@ class AdminAgendaController extends Controller
 
                     return $item;
                 });
-        ;
-
+                
         return response()->json($data);
     }
 
