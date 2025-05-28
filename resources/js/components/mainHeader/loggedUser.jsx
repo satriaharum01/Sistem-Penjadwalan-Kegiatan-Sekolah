@@ -173,12 +173,12 @@ function UserMenu({ handleClose, setShowLogout, dataUser }) {
 					my: 1,
 				}}
 			/>
-			<MenuItem onClick={handleClose} to="users/profile" component={RouterLink}>
+			{/*<MenuItem onClick={handleClose} to="users/profile" component={RouterLink}>
 				<ListItemIcon>
 					<Person2OutlinedIcon fontSize="small" />
 				</ListItemIcon>
 				Profile
-			</MenuItem>
+			</MenuItem>*/}
 			<MenuItem onClick={() => setShowLogout(true)}>
 				<ListItemIcon>
 					<ExitToAppIcon fontSize="small" />

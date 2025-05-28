@@ -58,6 +58,14 @@ Route::prefix('agenda')->name('agenda.')->group(function () {
     Route::GET('/find/{id}', [App\Http\Controllers\AdminAgendaController::class, 'find']);
 });
 
+Route::prefix('eskul')->name('eskul.')->group(function () {
+    Route::GET('/get', [App\Http\Controllers\AdminJadwalEskulController::class, 'json']);
+    Route::POST('/store', [App\Http\Controllers\AdminJadwalEskulController::class, 'store']);
+    Route::POST('/update/{id}', [App\Http\Controllers\AdminJadwalEskulController::class, 'update']);
+    Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminJadwalEskulController::class, 'destroy']);
+    Route::GET('/find/{id}', [App\Http\Controllers\AdminJadwalEskulController::class, 'find']);
+});
+
 Route::prefix('mapel')->name('mapel.')->group(function () {
     Route::GET('/get', [App\Http\Controllers\AdminMapelController::class, 'json']);
     Route::POST('/store', [App\Http\Controllers\AdminMapelController::class, 'store']);

@@ -44,6 +44,10 @@ const NAV_LINKS_CONFIG = [
 				title: 'Data Jadwal',
 				href: '/admin/jadwal/',
 			},
+			{
+				title: 'Data Eskul',
+				href: '/admin/eskul/',
+			},
 		]
 	},
 	{
@@ -85,19 +89,8 @@ const NAV_LINKS_CONFIG = [
 			{
 				title: 'Data Agenda',
 				href: '/admin/agenda',
-			},
-			{
-				title: 'Jenis Agenda',
-				href: '/admin/agenda/jenis',
-			},
+			}
 		]
-	},
-	{
-		id: uuid(),
-		type: 'item',
-		title: 'Pengguna',
-		Icon: AccountCircleOutlinedIcon,
-		href: '/admin/pengguna',
 	}
 ];
 

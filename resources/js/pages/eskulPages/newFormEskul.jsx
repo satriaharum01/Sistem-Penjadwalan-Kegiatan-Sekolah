@@ -7,17 +7,8 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import { MenuItem } from '@mui/material';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
-//Dummy Data
-import employeesData from '@/_mocks/employees';
 //Components
 import PageHeader from '@/components/pageHeader';
 import CardHeader from '@/components/cardHeader';
@@ -26,19 +17,19 @@ import DataTable from '@/components/dataTable';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../../api';
-import tingkatanMenuItems from './tingkatanMenuItems';
+import Swal from 'sweetalert2';
 
-function NewFormJadwal() {
+function NewFormEskul() {
 	return (
 		<>
-			<PageHeader title="Kelas">
+			<PageHeader title="Eskul">
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
 						textTransform: 'uppercase',
 					}}
 				>
-					<Typography color="text.tertiary">Kelas</Typography>
+					<Typography color="text.tertiary">Eskul</Typography>
 					<Link underline="hover" href="/">
 						Home
 					</Link>
@@ -46,7 +37,7 @@ function NewFormJadwal() {
 			</PageHeader>
 
 			<Stack spacing={5}>
-				<FormSection variant="standard" title="Kelas" />
+				<FormSection variant="standard" title="Agenda" />
 			</Stack>
 		</>
 	);
@@ -57,17 +48,23 @@ function FormSection({ variant, title }) {
 	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
-		nama_kelas: '',
-		tingkat: 'null'
+		nama_eskul: '',
+		hari: '',
+		pembina: '',
+		pelatih: '',
+		ruangan: '',
 	});
 
 	// Untuk edit: load data by ID
 	useEffect(() => {
 		if (id) {
-			api.get(`/kelas/find/${id}`).then((res) => {
+			api.get(`/eskul/find/${id}`).then((res) => {
 				setForm({
-					nama_kelas: res.data.nama_kelas,
-					tingkat: res.data.tingkat,
+					nama_eskul: res.data.nama_eskul,
+					hari: res.data.hari,
+					pembina: res.data.pembina,
+					pelatih: res.data.pelatih,
+					ruangan: res.data.ruangan,
 				});
 			});
 		}
@@ -79,17 +76,60 @@ function FormSection({ variant, title }) {
 			[e.target.name]: e.target.value,
 		});
 
-		console.log(form);
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		Swal.fire({
+			title: 'Menyimpan...',
+			text: 'Mohon tunggu',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			},
+		});
 		if (id) {
-			await api.post(`/kelas/update/${id}`, form);
+			await api
+				.post(`/eskul/update/${id}`, form)
+				.then(() => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Berhasil!',
+						text: 'Data berhasil disimpan',
+						timer: 1500,
+						showConfirmButton: false,
+					});
+				})
+				.catch((err) => {
+					console.error(err);
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal!',
+						text: 'Gagal menyimpan data',
+					});
+				});
 		} else {
-			await api.post('/kelas/store', form);
+			await api
+				.post('/eskul/store', form)
+				.then(() => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Berhasil!',
+						text: 'Data berhasil disimpan',
+						timer: 1500,
+						showConfirmButton: false,
+					});
+				})
+				.catch((err) => {
+					console.error(err);
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal!',
+						text: 'Gagal menyimpan data',
+					});
+				});
 		}
-		navigate('/admin/kelas');
+		navigate('../eskul');
 	};
 
 	return (
@@ -99,29 +139,51 @@ function FormSection({ variant, title }) {
 				<Grid container rowSpacing={2} columnSpacing={4}>
 					<Grid item xs={12} sm={4}>
 						<TextField
-							select
-							label="Tingkatan"
+							label="Nama Ekstarkulikuler"
 							variant={variant}
 							fullWidth
-							name="tingkat"
-							value={form.tingkat}
+							name="nama_eskul"
+							value={form.nama_eskul}
 							onChange={handleChange}
-						>
-							<MenuItem value="null" key="null">-- Pilih Tingkatan --</MenuItem>
-							{tingkatanMenuItems.map((item) => (
-									<MenuItem key={item.value} value={item.value}>
-										{item.label}
-									</MenuItem>
-							))}
-						</TextField>
+						/>
 					</Grid>
-					<Grid item xs={12} sm={8}>
+					<Grid item xs={12} sm={4}>
 						<TextField
-							label="Nama Kelas"
+							label="Jadwal"
 							variant={variant}
 							fullWidth
-							name="nama_kelas"
-							value={form.nama_kelas}
+							name="hari"
+							value={form.hari}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12} sm={4}>
+						<TextField
+							label="Ruangan"
+							variant={variant}
+							fullWidth
+							name="ruangan"
+							value={form.ruangan}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							label="Pembina"
+							variant={variant}
+							fullWidth
+							name="pembina"
+							value={form.pembina}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<TextField
+							label="Pelatih"
+							variant={variant}
+							fullWidth
+							name="pelatih"
+							value={form.pelatih}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -133,7 +195,7 @@ function FormSection({ variant, title }) {
 									color="error"
 									disableElevation
 									endIcon={<KeyboardBackspaceIcon />}
-									onClick={() => navigate('../kelas')}
+									onClick={() => navigate('../eskul/')}
 								>
 									Kembali
 								</Button>
@@ -157,4 +219,4 @@ function FormSection({ variant, title }) {
 	);
 }
 
-export default NewFormJadwal;
+export default NewFormEskul;
