@@ -81,7 +81,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="{url('/')}}" class="nav-item nav-link">Home</a>
+                    <a href="{{url('/')}}" class="nav-item nav-link">Home</a>
                     <a href="{{url('agenda')}}" class="nav-item nav-link {{ (request()->is('agenda')) ? 'active' : '' }}">Agenda</a>
                     <a href="{{url('/#eskul')}}" class="nav-item nav-link">Eskul</a>
                     <a href="{{url('jadwal')}}" class="nav-item nav-link {{ (request()->is('jadwal')) ? 'active' : '' }}">Jadwal</a>
