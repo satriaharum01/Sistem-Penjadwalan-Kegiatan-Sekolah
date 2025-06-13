@@ -53,7 +53,7 @@ function LoggedUser() {
 		img.src = avatarUrl;
 
 		img.onload = () => setAvatar(avatarUrl); // valid image
-		img.onerror = () => setAvatar(defatulAvatar); // fallback if image fails to load
+		img.onerror = () => setAvatar(default1); // fallback if image fails to load
 	}, [dataUser]);
 
 	const avatarPath = dataUser?.faces ? avatar : default1;
