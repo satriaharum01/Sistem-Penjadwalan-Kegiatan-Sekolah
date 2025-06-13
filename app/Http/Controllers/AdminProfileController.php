@@ -55,7 +55,10 @@ class AdminProfileController extends Controller
         }
         if ($request->file('photos')) {
             $file = $request->file('photos');
-            $filename = Auth::user()->id . '.jpg';
+
+            $ext = $file->getClientOriginalExtension();
+            $filename = Auth::user()->id .  $ext;
+            ;
             $this->profile_destroy($filename);
             $file->storeAs('/avatars', $filename, ['disk' => 'faces_upload']);
             $data['faces'] = $filename;
