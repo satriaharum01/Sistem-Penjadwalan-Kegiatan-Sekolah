@@ -39,11 +39,15 @@
           <div class="card wow fadeIn" data-wow-delay="0.2s">
             <div class="align-items-baseline card-header d-flex justify-content-between">
               <h5 id="card-title" class="text-primary">List Data Jadwal Kelas: {{$kelas}}</h5>
+              <div>
               <select class="btn btn-success" id="kelas" value="{{$kelas}}">
                 @foreach($kelasList as $row)
                 <option value="{{$row->nama_kelas}}">{{$row->nama_kelas}}</option>
                 @endforeach
               </select>
+              <button class="btn btn-pdf-kelas btn-success"><i class="fa fa-file-pdf"></i> Cetak</button>
+              </div>
+              
             </div>
 
             @if (isset($error))
@@ -96,6 +100,10 @@
       <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
         <div class="accordion-body">
           <div class="card-body wow fadeIn" data-wow-delay="0.2s" id="card-main">
+            <div class="align-items-baseline card-header d-flex justify-content-between">
+              <h5 id="card-title" class="text-primary">List Data Jadwal Ekstrakurikuler</h5>
+              <button class="btn btn-pdf btn-success"><i class="fa fa-file-pdf"></i> Cetak</button>
+            </div>
             <div class="table-responsive">
               <table class="table table-hover" id="data-width" width="100%">
                 <thead>
@@ -134,6 +142,19 @@
 @section('js')
 
 <script>
+$('.btn-pdf').on('click', function (e) {
+  e.preventDefault();
+  window.open('{{ url("jadwal/cetak?estrakulikuler=true") }}', '_blank');
+});
+$('.btn-pdf-kelas').on('click', function (e) {
+  e.preventDefault();
+  const selected = $('#kelas').val();
+  if (selected) {
+    window.open(`{{ url("jadwal/cetak?kelas=") }}${encodeURIComponent(selected)}`, '_blank');
+  } else {
+    alert('Silakan pilih kelas terlebih dahulu.');
+  }
+});
   document.getElementById('kelas').addEventListener('change', function () {
     const selected = this.value;
 

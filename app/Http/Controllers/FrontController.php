@@ -53,20 +53,20 @@ class FrontController extends Controller
         $this->data['dataList'] = $this->groupScheduleClassFind($kelas->id);
         $this->data['kelas'] = $kelas->nama_kelas;
         $this->data['kelasList'] = Kelas::all();
-        
-       // return ($this->data['dataList']);
+
+        // return ($this->data['dataList']);
         return view('front/jadwal', $this->data);
     }
-    
+
     public function mapelByKelas(Request $request)
     {
         $name = $request->input('kelas');
-        $kelas = Kelas::where('nama_kelas',$name)->first();
+        $kelas = Kelas::where('nama_kelas', $name)->first();
         if (!$kelas) {
             return response()->json([], 404); // Kelas tidak ditemukan
         }
         $data = $this->groupScheduleClassFind($kelas->id);
-        
+
         return response()->json($data);
     }
 
@@ -121,7 +121,53 @@ class FrontController extends Controller
 
         // Kembalikan data dalam bentuk tabel
         $lastdata = $this->groupByDayNotJson($groupedByDay);
-        
+
         return $lastdata;
+    }
+
+
+    public function cetakJadwal(Request $request)
+    {
+        $this->data['title'] = 'Cetak Jadwal PDF';
+        $this->data['subTitle'] = 'Data Jadwal';
+        $this->data['page'] = 'Laporan';
+
+        if ($request->input('kelas')) {
+            $this->data['subTitle'] = 'Jadwal Kegiatan Belajar Mengajar';
+            $name = $request->input('kelas');
+            $kelas = Kelas::where('nama_kelas', $name)->first();
+            if (!$kelas) {
+                return response()->json([], 404); // Kelas tidak ditemukan
+            }
+            $data = $this->groupScheduleClassFind($kelas->id);
+            $this->data['data'] = $data;
+            $this->data['kelas'] = 'Kelas ' .$name;
+        }
+        if ($request->input('estrakulikuler')) {
+
+            $this->data['title'] = 'Estrakulikuler';
+            $this->data['subTitle'] = 'Jadwal Kegiatan Ekstrakulikuler';
+            $this->data['data'] = JadwalEskul::orderby('nama_eskul', 'ASC')->get();
+            $this->data['estrakulikuler'] = true;
+        }
+        if ($request->input('agenda')) {
+            $this->data['title'] = 'Agenda';
+            $this->data['subTitle'] = 'Jadwal Agenda Kegiatan';
+            $this->data['data'] = Agenda::orderby('tanggal', 'DESC')
+                    ->orderby('mulai', 'ASC')
+                    ->get()->map(function ($item, $index) {
+                        $item->DT_RowIndex = $index + 1;
+                        $item->agenda = $item->nama_agenda;
+                        $item->tanggal = date('d F Y', strtotime($item->tanggal));
+                        $item->waktu =  date('H:i', strtotime($item->mulai)) . ' - '. date('H:i', strtotime($item->selesai));
+                        $item->jenis = $item->jenis;
+
+                        return $item;
+                    });
+
+            $this->data['agenda'] = true;
+        }
+
+        return view('front/cetak', $this->data);
     }
 }

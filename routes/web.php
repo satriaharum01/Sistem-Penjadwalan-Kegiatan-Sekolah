@@ -29,6 +29,8 @@ Route::GET('/', [App\Http\Controllers\FrontController::class, 'index']);
 Route::GET('/agenda', [App\Http\Controllers\FrontController::class, 'agenda']);
 Route::GET('/organisasi', [App\Http\Controllers\FrontController::class, 'organisasi']);
 Route::GET('/jadwal', [App\Http\Controllers\FrontController::class, 'jadwal']);
+Route::GET('/jadwal/cetak', [App\Http\Controllers\FrontController::class, 'cetakJadwal']);
+Route::GET('/agenda/cetak', [App\Http\Controllers\FrontController::class, 'cetakJadwal']);
 Route::POST('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 Route::get('/{any}', function () {
