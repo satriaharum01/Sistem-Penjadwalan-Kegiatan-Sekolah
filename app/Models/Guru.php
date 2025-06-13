@@ -24,8 +24,8 @@ class Guru extends Model
     public static function validate($data)
     {
         return Validator::make($data, [
-            'nama_guru'         => 'required|string|max:30',
-            'kode'       => 'required|string|max:4|min:2',
+            'nama_guru'         => 'required|string|max:100',
+            'kode'       => 'required|string|max:5|min:2',
             'jam_kerja'          => 'required|numeric',
             'jabatan'         => 'required|string|',
             'tugas_tambahan'    => 'required|string'
@@ -45,9 +45,9 @@ class Guru extends Model
     public function jadwals()
     {
         return $this->hasMany(Jadwal::class, 'guru_id', 'id')
-            ->whereColumn('jadwal.guru_id','guru.id');
+            ->whereColumn('jadwal.guru_id', 'guru.id');
     }
-    
+
     public function findUser()
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault(function ($data) {
