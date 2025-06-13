@@ -1,0 +1,1 @@
+import{b as r,i as t,d as a}from"./main-ed2c2254.js";var e={},u=t;Object.defineProperty(e,"__esModule",{value:!0});var i=e.default=void 0,l=u(r()),o=a;i=e.default=(0,l.default)((0,o.jsx)("path",{d:"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM8 9h8v10H8zm7.5-5-1-1h-5l-1 1H5v2h14V4z"}),"DeleteOutline");export{i as d};
