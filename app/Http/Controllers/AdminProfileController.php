@@ -41,22 +41,29 @@ class AdminProfileController extends Controller
 
         $fillAble = (new User())->getFillable();
         $data = $request->only($fillAble);
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
+        if ($request->filled('confirm_password')) {
+            if (!Hash::check($request->current_password, $rows->password)) {
+                return response()->json(['message' => 'Password lama tidak cocok'], 401);
+            }
+            $data['password'] = Hash::make($request->new_password);
+
+            $rows->update($data);
+
+            return response()->json(['message' => 'Data updated successfully', 'result' => $data], 201);
         } else {
             unset($data['password']);
         }
-        if($request->file('photos'))
-        {
+        if ($request->file('photos')) {
             $file = $request->file('photos');
             $filename = Auth::user()->id . '.jpg';
-            $this->image_destroy($filename);
-            $file->storeAs('', $filename, ['disk' => 'faces_upload']);
+            $this->profile_destroy($filename);
+            $file->storeAs('/avatars', $filename, ['disk' => 'faces_upload']);
             $data['faces'] = $filename;
         }
+        $data['name'] = $request->username;
         $rows->update($data);
 
-        return redirect($this->page);
+        return response()->json(['message' => 'Data updated successfully', 'result' => $data], 201);
     }
 
 }

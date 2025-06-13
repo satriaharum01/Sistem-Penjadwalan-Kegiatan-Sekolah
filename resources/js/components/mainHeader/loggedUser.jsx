@@ -43,11 +43,17 @@ function LoggedUser() {
 	const [avatar, setAvatar] = useState(null);
 
 	useEffect(() => {
+		if (!user) return;
 		setDataUser(user);
 		// Dinamis mengimpor gambar dari folder
-		import(`@/assets/images/avatars/${dataUser.faces}`)
-			.then((image) => setAvatar(image.default))
-			.catch(() => setAvatar('/assets/images/avatars/default.png'));
+		const imagePath = user.faces;
+		const avatarUrl = `${import.meta.env.VITE_AVATARS_URL}${imagePath}`;
+		// Dinamis mengimpor gambar dari folder
+		const img = new Image();
+		img.src = avatarUrl;
+
+		img.onload = () => setAvatar(avatarUrl); // valid image
+		img.onerror = () => setAvatar(defatulAvatar); // fallback if image fails to load
 	}, [dataUser]);
 
 	const avatarPath = dataUser?.faces ? avatar : default1;
@@ -173,12 +179,12 @@ function UserMenu({ handleClose, setShowLogout, dataUser }) {
 					my: 1,
 				}}
 			/>
-			{/*<MenuItem onClick={handleClose} to="users/profile" component={RouterLink}>
+			<MenuItem onClick={handleClose} to="users/profile" component={RouterLink}>
 				<ListItemIcon>
 					<Person2OutlinedIcon fontSize="small" />
 				</ListItemIcon>
 				Profile
-			</MenuItem>*/}
+			</MenuItem>
 			<MenuItem onClick={() => setShowLogout(true)}>
 				<ListItemIcon>
 					<ExitToAppIcon fontSize="small" />

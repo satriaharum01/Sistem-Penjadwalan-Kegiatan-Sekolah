@@ -54,14 +54,14 @@ class Controller extends BaseController
 
     public function image_destroy($filename)
     {
-        if (File::exists(public_path('/img/fasum/' . $filename . ''))) {
-            File::delete(public_path('/img/fasum/' . $filename . ''));
+        if (File::exists(public_path('/img/' . $filename . ''))) {
+            File::delete(public_path('/img/' . $filename . ''));
         }
     }
     public function profile_destroy($filename)
     {
-        if (File::exists(public_path('/assets/img/faces/' . $filename . ''))) {
-            File::delete(public_path('/assets/img/faces/' . $filename . ''));
+        if (File::exists(public_path('/assets/images/avatars/' . $filename . ''))) {
+            File::delete(public_path('/assets/images/avatars/' . $filename . ''));
         }
     }
 

@@ -63,7 +63,7 @@ return [
 
         'faces_upload' => [
             'driver' => 'local',
-            'root'   => base_path('/assets/img/faces') ,
+            'root'   => public_path('/assets/images') ,
         ],
     ],
 

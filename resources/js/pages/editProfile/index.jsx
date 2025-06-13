@@ -36,20 +36,6 @@ const menuOptions = [
 	},
 	{
 		id: uuid(),
-		name: 'profile',
-		Icon: AccountBoxOutlinedIcon,
-		text: 'Profile',
-		renderSection: <Profile />,
-	},
-	{
-		id: uuid(),
-		name: 'billing',
-		Icon: CreditCardIcon,
-		text: 'Billing',
-		renderSection: <Billing />,
-	},
-	{
-		id: uuid(),
 		name: 'security',
 		Icon: VpnKeyOutlinedIcon,
 		text: 'Security',
@@ -72,17 +58,17 @@ function EditProfile() {
 
 	return (
 		<>
-			<PageHeader title="Account Settings Page">
+			<PageHeader title="Account Settings">
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
 						textTransform: 'uppercase',
 					}}
 				>
-					<Link underline="hover" component={RouterLink} to="/pages/profile">
+					<Link underline="hover" component={RouterLink} to="">
 						Profile
 					</Link>
-					<Typography color="text.tertiary">Settings</Typography>
+					<Typography color="text.tertiary">Account</Typography>
 				</Breadcrumbs>
 			</PageHeader>
 			<Grid container rowSpacing={2} columnSpacing={4}>
@@ -112,12 +98,6 @@ function EditProfile() {
 									selected={activeSection === name}
 								/>
 							))}
-							<MenuItem>
-								<ListItemIcon>
-									<HandshakeOutlinedIcon fontSize="medium" />
-								</ListItemIcon>
-								Terms and conditions
-							</MenuItem>
 						</MenuList>
 					</Card>
 				</Grid>

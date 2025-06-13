@@ -24,17 +24,125 @@ import PhoneAndroidTwoToneIcon from '@mui/icons-material/PhoneAndroidTwoTone';
 
 import CardHeader from '@/components/cardHeader';
 
+//Custom Component
+import api from '@/api';
+import Swal from 'sweetalert2';
+import { useAuth } from '@/context/AuthContext';
+import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+
 function Security() {
 	return (
 		<Stack spacing={6}>
 			<PassworSection />
-			<MultifactorSection />
-			<SessionsSection />
+			{/*<MultifactorSection />
+			<SessionsSection />*/}
 		</Stack>
 	);
 }
 
 function PassworSection() {
+	const { user } = useAuth();
+	const [dataUser, setDataUser] = useState([]);
+	const [error, setError] = useState(false);
+	const [error1, setError1] = useState(false);
+	const [disButton, setDisButton] = useState(true);
+	const [form, setForm] = useState({
+		id: '',
+		new_password: '',
+		confirm_password: '',
+		current_password: '',
+	});
+
+	useEffect(() => {
+		if (!user) return;
+		setDataUser(user);
+
+		setForm((prevForm) => ({
+			...prevForm,
+			id: user.id,
+		}));
+	}, [dataUser]);
+
+	const handleChange = (e) => {
+		const updatedForm = {
+			...form,
+			[e.target.name]: e.target.value,
+		};
+		console.log(updatedForm);
+		setForm(updatedForm);
+		checkPassword(updatedForm); // pass the updated data directly
+	};
+	const checkPassword = (e) => {
+		if (e.new_password !== e.confirm_password && e.confirm_password != '') {
+			setError(true);
+			setDisButton(true);
+		} else if (e.current_password.length < 5 && e.current_password != '') {
+			setError1(true);
+			setDisButton(true);
+		} else if (e.current_password == '') {
+			setDisButton(true);
+			setError(false);
+		} else {
+			setError1(false);
+			setError(false);
+			setDisButton(false);
+		}
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		Swal.fire({
+			title: 'Ganti Password ?',
+			text: 'Data yang diupdate tidak dapat dikembalikan !',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes',
+			cancelButtonText: 'Tidak',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				submitData();
+			}
+		});
+	};
+
+	const submitData = async (e) => {
+		if (form.id) {
+			Swal.fire({
+				title: 'Menyimpan...',
+				text: 'Mohon tunggu',
+				allowOutsideClick: false,
+				didOpen: () => {
+					Swal.showLoading();
+				},
+			});
+			await api
+				.post(`/admin/profile/update/${form.id}`, form)
+				.then(() => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Berhasil!',
+						text: 'Data berhasil disimpan',
+						timer: 1500,
+						showConfirmButton: false,
+					});
+				})
+				.catch((err) => {
+					console.error(err);
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal!',
+						text: err.response.data.message,
+					});
+
+					Navigate('');
+				});
+		}
+
+		window.location.reload();
+	};
 	return (
 		<Card type="section">
 			<CardHeader title="Change Password" subtitle="Update Profile Security" />
@@ -44,21 +152,50 @@ function PassworSection() {
 					Your Password will expire in every 3 months. So change it periodically.
 					<b> Do not share your password</b>
 				</Alert>
-				<form onSubmit={() => {}}>
+				<form onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} sm={6} md={6}>
-							<TextField label="New Password" variant="outlined" type="password" fullWidth />
+							<TextField
+								label="New Password"
+								name="new_password"
+								value={form.new_password}
+								onChange={handleChange}
+								variant="outlined"
+								type="password"
+								fullWidth
+							/>
 						</Grid>
 						<Grid item xs={12} sm={6} md={6}>
-							<TextField label="Confirm Password" variant="outlined" type="password" fullWidth />
+							<TextField
+								label="Confirm Password"
+								name="confirm_password"
+								value={form.confirm_password}
+								onChange={handleChange}
+								error={error}
+								helperText={error ? 'Password Baru tidak sama dengan confirm password.' : ''}
+								variant="outlined"
+								type="password"
+								fullWidth
+							/>
 						</Grid>
 						<Grid item xs={12} sm={6} md={6}>
-							<TextField label="Current Password" variant="outlined" type="password" fullWidth />
+							<TextField
+								label="Current Password"
+								name="current_password"
+								error={error1}
+								helperText={error1 ? 'Minimal 6 character.' : ''}
+								value={form.current_password}
+								onChange={handleChange}
+								variant="outlined"
+								type="password"
+								fullWidth
+							/>
 						</Grid>
 
 						<Grid item xs={12} sm={12} md={12}>
 							<Button
-								disableElevation
+								disabled={disButton}
+								type="submit"
 								variant="contained"
 								sx={{
 									float: 'right',

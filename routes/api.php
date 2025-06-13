@@ -104,3 +104,12 @@ Route::prefix('jadwal')->name('jadwal.')->group(function () {
     Route::DELETE('/delete/{id}', [App\Http\Controllers\AdminJadwalController::class, 'destroy']);
     Route::GET('/find/{id}', [App\Http\Controllers\AdminJadwalController::class, 'find']);
 });
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::POST('/update/{id}', [App\Http\Controllers\AdminProfileController::class, 'update']);
+    });
+
+});

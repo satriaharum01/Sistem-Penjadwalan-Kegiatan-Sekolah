@@ -103,6 +103,8 @@ function Router() {
 								<Route path="eskul" element={<EskulPage />} />
 								<Route path="eskul/new" element={<NewFormEskul />} />
 								<Route path="eskul/edit/:id" element={<NewFormEskul />} />
+								{/* List Profile */}
+								<Route path="users/profile" element={<EditProfilePage />} />
 							</Route>
 
 							<Route path="pages/">
