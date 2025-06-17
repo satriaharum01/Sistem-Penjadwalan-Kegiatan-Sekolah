@@ -291,21 +291,6 @@ function JamGuruSection({ jam }) {
 					</Typography>
 				</Typography>
 				<Typography variant="subtitle1">JAM MENGAJAR GURU TERSEDIA</Typography>
-				<Typography variant="subtitle2">
-					Jam mengajar guru yang tersedia untuk melihat proses penjadwalan...
-				</Typography>
-				<Button
-					variant="text"
-					size="small"
-					endIcon={<ChevronRightIcon />}
-					sx={{
-						width: 'fit-content',
-						textTransform: 'uppercase',
-					}}
-					onClick={() => navigate(`../admin/guru/jam`)}
-				>
-					Lihat Data
-				</Button>
 			</Stack>
 		</SectionContainer>
 	);
