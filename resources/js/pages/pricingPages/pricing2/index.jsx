@@ -56,7 +56,7 @@ function Pricing2() {
 				<Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
 					<Avatar sx={{ width: 45, height: 45 }} alt="Remy Sharp" src={avatar} />
 					<Typography variant="h5" flexGrow={1}>
-						Elizabeth Lumaad Olsen
+						Profile
 					</Typography>
 					<Typography variant="subtitle2">
 						Tipo Usuario: &nbsp;

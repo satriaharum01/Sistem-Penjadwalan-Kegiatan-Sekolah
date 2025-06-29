@@ -80,7 +80,7 @@ function EditProfile() {
 						}}
 						component="aside"
 					>
-						<Typography variant="subtitle1">Elizabeth Lumaad Olsen</Typography>
+						<Typography variant="subtitle1">PROFILE</Typography>
 						<Divider sx={{ borderColor: 'primary.light', my: 1 }} />
 						<MenuList
 							sx={{
