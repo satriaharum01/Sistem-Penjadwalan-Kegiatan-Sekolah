@@ -61,7 +61,7 @@ const getHeadCells = [
 function JadwalPage() {
 	return (
 		<>
-			<PageHeader title="Atur Jadwal Kelas">
+			<PageHeader title="Jadwal Kelas">
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
