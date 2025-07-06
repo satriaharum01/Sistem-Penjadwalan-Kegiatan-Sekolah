@@ -49,16 +49,16 @@ const getHeadCells = [
 		label: 'pelatih',
 	},
 	{
-		id: 'ruangan',
-		numeric: false,
-		disablePadding: false,
-		label: 'Ruangan',
-	},
-	{
 		id: 'hari',
 		numeric: false,
 		disablePadding: false,
 		label: 'Jadwal',
+	},
+		{
+		id: 'ruangan',
+		numeric: false,
+		disablePadding: false,
+		label: 'Ruangan',
 	},
 	{
 		id: 'options',
