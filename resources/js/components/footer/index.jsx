@@ -93,21 +93,6 @@ function Footer() {
 					<Typography variant="body1" textAlign="center">
 						Copyright 2025 © All Rights Reserved. Sistem Penjadwalan Sekolah
 					</Typography>
-					<Typography variant="subtitle1" textAlign="center">
-						💻 - Developed By{' '}
-						<Link
-							underline="hover"
-							sx={{
-								cursor: 'pointer',
-							}}
-							href="https://www.instagram.com/satriaharumi/"
-							target="_blank"
-							rel="noreferrer noopener"
-							fontWeight="medium"
-						>
-							Mr. Harumi 
-						</Link>
-					</Typography>
 				</Stack>
 			</Container>
 		</Box>

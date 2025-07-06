@@ -1,10 +1,10 @@
 export default {
-	author: 'Satria Harumi',
-	avatar: 'https://avatars.githubusercontent.com/u/85953201?v=4',
+	author: ' ',
+	avatar: ' ',
 	profilesUrls: {
-		linkedin: 'https://www.linkedin.com/in/satria-harum-nugraha',
-		github: 'https://github.com/satriaharum01',
-		email: 'skeith.shn@gmail.com',
+		linkedin: ' ',
+		github: ' ',
+		email: ' ',
 	},
 	language: 'en_mx',
 	siteData: {
