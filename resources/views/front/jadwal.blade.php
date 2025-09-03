@@ -38,7 +38,7 @@
         <div class="accordion-body">
           <div class="card wow fadeIn" data-wow-delay="0.2s">
             <div class="align-items-baseline card-header d-flex justify-content-between">
-              <h5 id="card-title" class="text-primary">List Data Jadwal Kelas: {{$kelas}}</h5>
+              <h5 id="card-title" class="text-primary">List Data Jadwal Kelas:</h5>
               <div>
               <select class="btn btn-success" id="kelas" value="{{$kelas}}">
                 @foreach($kelasList as $row)

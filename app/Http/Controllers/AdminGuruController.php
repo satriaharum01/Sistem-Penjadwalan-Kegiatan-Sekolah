@@ -50,7 +50,7 @@ class AdminGuruController extends Controller
 
     public function find($id)
     {
-        // Mengambil data anime berdasarkan ID
+        // Mengambil data berdasarkan ID
         $data = Guru::find($id);
         if ($data) {
             return response()->json($data);

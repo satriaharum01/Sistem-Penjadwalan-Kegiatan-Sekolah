@@ -103,46 +103,78 @@ function DataTableSection({ name, props }) {
 		fetchDataList();
 	}, []);
 
-	const generateJadwal = async () => {
-		let logText = 'Open server request...';
-		try {
-			const eventSource = new EventSource('../../api/stream-jadwal-log');
+const generateJadwal = async () => {
+    let logText = '';
+    try {
+        const eventSource = new EventSource('../../api/stream-jadwal-log');
 
-			Swal.fire({
-				title: 'Membuat Jadwal...',
-				html: '<pre id="swal-log" style="text-align: left; font-size:10pt;text-wrap-mode: wrap;"></pre>',
-				allowOutsideClick: false,
-				didOpen: () => {
-					Swal.showLoading();
+        Swal.fire({
+            title: '<div style="white-space: normal; word-wrap: break-word;">Membuat Jadwal...</div>',
+            html: `
+			<div id="swal-log" style="
+				text-align: left; 
+				font-size: 10pt; 
+				white-space: pre-wrap; 
+				line-height: 1.8; /* <<< tambahkan ini untuk jarak baris lebih renggang */
+				max-height: 300px; 
+				overflow-y: auto; 
+				font-family: 'Courier New', monospace; 
+				background: #f8f9fa; 
+				border: 1px solid #ddd; 
+				padding: 10px; 
+				border-radius: 5px;
+			"></div>
+            `,
+            allowOutsideClick: false,
+            width: 600,
+            customClass: {
+                container: 'swal2-front-inline'
+            },
+            didOpen: () => {
+                // tambahkan z-index langsung lewat JS (inline)
+                const swalContainer = document.querySelector('.swal2-front-inline');
+                if (swalContainer) {
+                    swalContainer.style.zIndex = '2000';
+                }
 
-					const logContainer = Swal.getHtmlContainer().querySelector('#swal-log');
+                Swal.showLoading();
+                const logContainer = Swal.getHtmlContainer().querySelector('#swal-log');
 
-					eventSource.onmessage = (event) => {
-						logText = event.data + '\n';
-						logContainer.textContent = logText;
-					};
+                const appendLog = (message) => {
+                    let styledMessage = message;
+                    if (message.includes('✅')) styledMessage = `<span style="color: green;">${message}</span>`;
+                    else if (message.includes('❌') || message.toLowerCase().includes('gagal'))
+                        styledMessage = `<span style="color: red;">${message}</span>`;
+                    else if (message.toLowerCase().includes('berhasil'))
+                        styledMessage = `<span style="color: blue;">${message}</span>`;
 
-					eventSource.onerror = (error) => {
-						logContainer.textContent += '\n❌ Terjadi kesalahan.';
-						eventSource.close();
-						Swal.hideLoading();
-					};
+                    logText += styledMessage + '\n';
+                    logContainer.innerHTML = logText;
+                    logContainer.scrollTop = logContainer.scrollHeight;
+                };
 
-					eventSource.addEventListener('done', () => {
-						logContainer.textContent += '\n✅ Jadwal selesai dibuat.';
-						eventSource.close();
-						Swal.hideLoading();
+                eventSource.onmessage = (event) => {
+                    appendLog(event.data);
+                };
 
-						navigate('/admin/jadwal');
-					});
-				},
-			});
-			// Ganti dengan endpoint yang sesuai
-		} catch (err) {
-			setError(err.message);
-		} finally {
-		}
-	};
+                eventSource.onerror = () => {
+                    appendLog('❌ Terjadi kesalahan.');
+                    eventSource.close();
+                    Swal.hideLoading();
+                };
+
+                eventSource.addEventListener('done', () => {
+                    appendLog('✅ Jadwal selesai dibuat.');
+                    eventSource.close();
+                    Swal.hideLoading();
+                    navigate('/admin/jadwal');
+                });
+            },
+        });
+    } catch (err) {
+        setError(err.message);
+    }
+};
 
 	const handleJadwal = (id) => {
 		Swal.fire({

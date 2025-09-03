@@ -1,6 +1,6 @@
 // jenisMenuItems.js
 const jenisMenuItems = [
-    { value: 'Upacara', label: 'Upacata' },
+    { value: 'Upacara', label: 'Upacara' },
     { value: 'Mata Pelajaran', label: 'Mata Pelajaran' },
     { value: 'Istirahat', label: 'Istirahat' },
     { value: 'Motivasi', label: 'Motivasi' },

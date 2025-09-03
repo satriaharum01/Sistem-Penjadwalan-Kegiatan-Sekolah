@@ -44,7 +44,7 @@ class AdminKelasController extends Controller
 
     public function find($id)
     {
-        // Mengambil data anime berdasarkan ID
+        // Mengambil data berdasarkan ID
         $data = Kelas::find($id);
         if ($data) {
             return response()->json($data);

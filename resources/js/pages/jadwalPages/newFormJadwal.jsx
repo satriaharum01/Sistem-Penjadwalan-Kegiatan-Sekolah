@@ -32,12 +32,12 @@ import jenisMenuItems from './jenisMenuItems';
 function NewFormJadwal() {
 	return (
 		<>
-			<PageHeader title="Jam Pelajaran">
+			<PageHeader title="Jam Pelajaran"> 
 				<Breadcrumbs
 					aria-label="breadcrumb"
 					sx={{
 						textTransform: 'uppercase',
-					}}
+					}} //new form atur jadwal
 				>
 					<Typography color="text.tertiary">Jadwal</Typography>
 					<Link underline="hover" href="/">

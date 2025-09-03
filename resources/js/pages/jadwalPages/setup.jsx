@@ -63,7 +63,7 @@ function AturJadwalPage() {
 					aria-label="breadcrumb"
 					sx={{
 						textTransform: 'uppercase',
-					}}
+					}} // halaman atur jadwal yang menampilkan list data
 				>
 					<Typography color="text.tertiary">Jadwal</Typography>
 					<Link underline="hover" href="/">
